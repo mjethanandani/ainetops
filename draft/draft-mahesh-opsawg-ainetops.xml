@@ -43,8 +43,11 @@
         to standardize, and proposes a concrete set of deliverables:
         YANG data models for AI agent audit logs, configuration,
         governance, and operational state; a NETCONF/RESTCONF
-        attribution mechanism for AI-initiated changes; and an
-        operational security BCP for AI-mediated network management.
+        attribution mechanism for AI-initiated changes; Model Context
+        Protocol (MCP) extensions for YANG-based network management;
+        an Agent-to-Agent (A2A) interface for multi-agent coordination;
+        and an operational security BCP for AI-mediated network
+        management.
       </t>
     </abstract>
     <note removeInRFC="true">
@@ -143,6 +146,39 @@
           established to discuss integration of AI and ML in network
           operations using IETF technologies.
         </li>
+        <li>
+          <xref target="I-D.zeng-opsawg-applicability-mcp-a2a"/>
+          argues that NETCONF has five architectural gaps for AI-driven
+          operations — AI semantic translation, long-lived cross-domain
+          orchestration, multi-agent consensus, rapid DevOps iteration,
+          and large artifact delivery — and proposes the Model Context
+          Protocol (MCP) and Agent-to-Agent (A2A) protocol as
+          complementary layers alongside NETCONF, not replacements
+          for it.
+        </li>
+        <li>
+          <xref target="I-D.zeng-opsawg-llm-netconf-gap"/> performs a
+          gap analysis of NETCONF and RESTCONF for LLM-driven intent-
+          based networking, identifying the absence of a YANG-to-JSON-
+          Schema automation pipeline as a blocking gap: LLMs cannot
+          reason over YANG tree notation but can consume JSON Schema
+          tool descriptors.
+        </li>
+        <li>
+          <xref target="I-D.zw-opsawg-mcp-network-mgmt"/> specifies
+          concrete MCP extensions for network equipment management,
+          defining tools that map directly onto YANG datastore
+          operations (get, edit, commit, rollback) and capability
+          advertisement that lets MCP servers declare their supported
+          YANG modules.
+        </li>
+        <li>
+          <xref target="I-D.irtf-nmrg-llm-nm"/> proposes a framework
+          for LLM-assisted network management with a mandatory human-
+          in-the-loop audit step before any AI-generated configuration
+          is deployed, and defines YANG modules for both the LLM
+          response record and the human approval workflow.
+        </li>
       </ul>
       <t>
         Collectively, these efforts have established the problem space
@@ -187,11 +223,17 @@
       <section anchor="wg-scope" title="Working Group Scope">
         <t>
           The AINETOPS mailing list work should be chartered into OPSAWG
-          or it itsef should be chartered as a working
-          group with a tight, deliverable-focused scope.  The charter
-          should commit to the work items described in this section and
-          explicitly exclude architecture surveys, gap analyses, and
-          AI algorithm specification.
+          or it itself should be chartered as a working group with a
+          tight, deliverable-focused scope.  The charter should commit
+          to the work items described in this section and explicitly
+          exclude architecture surveys and AI algorithm specification.
+        </t>
+        <t>
+          Gap analyses are in scope only when they are directly coupled
+          to a committed standards-track or BCP deliverable within the
+          same charter.  Gap analyses that stand alone without an
+          associated data model or protocol work item should not be
+          chartered.
         </t>
         <t>
           A use cases and requirements document, building on
@@ -213,7 +255,7 @@
             <xref target="I-D.zhao-nmop-network-management-agent"/>
             specifies that operators and peer agents submit intents to
             the NMA via the Agent-to-User (A2U) interface using
-            structured formats (YANG, JSON, or gNMI).  The intent
+            structured formats such as YANG or JSON.  The intent
             carries a high-level operational goal (e.g., "restore SLA
             for service X" or "optimize traffic across domain Y") along
             with associated constraints such as latency bounds, cost
@@ -249,6 +291,17 @@
             operational tooling.  A minimum retention period of 365
             days <bcp14>SHOULD</bcp14> be captured in the model as a
             configurable default.
+          </t>
+          <t>
+            The model <bcp14>SHOULD</bcp14> also capture the human-in-
+            the-loop workflow: whether a proposed action required human
+            approval before execution, the identity of the approver,
+            the timestamp of approval or rejection, and any operator
+            annotation attached to the decision.  This extends the
+            audit record beyond what the AI agent did autonomously to
+            include the governance interactions that constrained it,
+            enabling post-hoc analysis of where human oversight was
+            exercised and where it was not.
           </t>
         </section>
 
@@ -344,29 +397,94 @@
         </t>
         <t>
           This work should be pursued in the NETCONF WG, coordinated
-          with either OPSAWG orthe AINETOPS WG, depending on where the 
+          with either OPSAWG or the AINETOPS WG, depending on where the
           A2U interface work is chartered.
         </t>
       </section>
 
-      <section anchor="a2c-interface" title="Agent-to-Controller Interface (NMOP)">
+      <section anchor="mcp-extensions" title="MCP Extensions for Network Management">
         <t>
-          <xref target="I-D.zhao-nmop-network-management-agent"/>
-          identifies the Agent-to-Controller (A2C) interface — the
-          east-west interface between an independently deployed NMA and
-          an existing SDN controller — as a required component of the
-          NMA architecture, but explicitly defers its definition to
-          future documents.
+          The Model Context Protocol (MCP) is an emerging interface
+          layer designed to allow LLM-based agents to discover and
+          invoke management functions through machine-readable tool
+          descriptors.  Three OPSAWG drafts
+          <xref target="I-D.zeng-opsawg-applicability-mcp-a2a"/>
+          <xref target="I-D.zeng-opsawg-llm-netconf-gap"/>
+          <xref target="I-D.zw-opsawg-mcp-network-mgmt"/>
+          have identified MCP as a complementary interface that
+          addresses gaps in NETCONF and RESTCONF for AI-driven
+          scenarios, specifically: AI semantic translation, LLM-
+          readable capability discovery, and DevOps-paced tool
+          registration.  MCP does not replace NETCONF or RESTCONF;
+          it provides a semantic interface layer above them.
         </t>
         <t>
-          This interface is a concrete NMOP WG work item.  It should
+          IETF should standardize two MCP-related items for network
+          management.  First, a mapping of YANG datastores and
+          NETCONF/RESTCONF operations to MCP tool schemas, such that
+          an MCP server backed by a NETCONF/RESTCONF agent exposes
+          operations like get, edit-config, commit, and rollback as
+          JSON-Schema-described tools with consistent parameter names
+          and error codes.
+          <xref target="I-D.zw-opsawg-mcp-network-mgmt"/> provides
+          a concrete starting point for this work.
+        </t>
+        <t>
+          Second, a YANG module for MCP capability advertisement that
+          allows a network device or controller to declare, through its
+          existing NETCONF/RESTCONF management interface, which YANG
+          modules it supports, which operations are available as MCP
+          tools, and what rollback and confirmation capabilities are
+          present.  This allows AI agents to query device capabilities
+          using the same infrastructure they use for configuration,
+          without requiring a separate capability discovery protocol.
+        </t>
+        <t>
+          This work is suitable for OPSAWG, in coordination with the
+          NETCONF WG for any extensions to NETCONF notification
+          semantics that MCP tool responses may require.
+        </t>
+      </section>
+
+      <section anchor="agent-interfaces" title="Agent-to-Agent and Agent-to-Controller Interfaces (NMOP)">
+        <t>
+          <xref target="I-D.zhao-nmop-network-management-agent"/>
+          identifies two interfaces that require standardization in the
+          independent NMA deployment mode: the Agent-to-Controller
+          (A2C) interface between the NMA and an existing SDN
+          controller, and — implicitly — peer Agent-to-Agent (A2A)
+          interfaces for multi-agent coordination in heterogeneous
+          deployments.
+        </t>
+        <t>
+          The A2C interface is a concrete NMOP WG work item.  It should
           define how the NMA invokes controller capabilities (topology
           queries, telemetry subscriptions, configuration enforcement)
           as abstract tools, and how the controller returns results and
           exceptions to the NMA.  The interface should be expressed
-          using existing IETF management protocols (NETCONF/RESTCONF
-          or gNMI) and YANG data models, avoiding the introduction of
-          a new protocol.
+          using existing IETF management protocols (NETCONF or RESTCONF)
+          and YANG data models, avoiding the introduction of a new
+          protocol.
+        </t>
+        <t>
+          Beyond the single NMA-to-controller case, real deployments
+          involve multiple AI agents operating concurrently across
+          domains, each with different capabilities and authorities.
+          <xref target="I-D.zeng-opsawg-applicability-mcp-a2a"/>
+          identifies multi-agent consensus and long-lived cross-domain
+          orchestration as gaps not addressed by NETCONF.  IETF should
+          define how AI agents advertise their capabilities, negotiate
+          task delegation, and exchange structured results in a way
+          that is interoperable across vendors and anchored in existing
+          IETF management protocols.  This A2A work item should define:
+          a YANG module for agent capability advertisement, a mechanism
+          for task delegation and status reporting between peer agents
+          using NETCONF/RESTCONF, and the trust and authorization model
+          governing agent-to-agent interactions.
+        </t>
+        <t>
+          Both the A2C and A2A items are suitable for NMOP, coordinated
+          with OPSAWG for the YANG data model components.
         </t>
       </section>
 
@@ -442,12 +560,14 @@
           IETF scope.  The YANG data models and protocol extensions
           proposed here are intentionally AI-service-agnostic.
         </dd>
-        <dt>Gap analyses and surveys</dt>
+        <dt>Gap analyses and surveys without committed deliverables</dt>
         <dd>
-          The use cases and requirements document is sufficient to
-          scope the work.  Ongoing gap analysis documents without
-          associated data model or protocol deliverables should not be
-          chartered work items.
+          Gap analyses that are directly coupled to a committed
+          standards-track or BCP work item within the same charter are
+          in scope.  Gap analyses that stand alone — without an
+          associated data model or protocol document — should not be
+          chartered work items, as the use cases and requirements
+          document is sufficient to scope the normative work.
         </dd>
         <dt>External framework alignment guidelines</dt>
         <dd>
@@ -514,19 +634,34 @@
             <td>NETCONF</td>
           </tr>
           <tr>
+            <td>MCP tool schema mapping for YANG/NETCONF operations</td>
+            <td>Standards Track</td>
+            <td>OPSAWG/AINETOPS</td>
+          </tr>
+          <tr>
+            <td>YANG module for MCP capability advertisement</td>
+            <td>Standards Track</td>
+            <td>OPSAWG/AINETOPS</td>
+          </tr>
+          <tr>
             <td>Agent-to-Controller (A2C) interface definition</td>
+            <td>Standards Track</td>
+            <td>NMOP</td>
+          </tr>
+          <tr>
+            <td>Agent-to-Agent (A2A) interface for multi-agent coordination</td>
             <td>Standards Track</td>
             <td>NMOP</td>
           </tr>
           <tr>
             <td>Operational security BCP for AI-mediated management</td>
             <td>BCP</td>
-            <td>OPSAWG</td>
+            <td>OPSAWG/AINETOPS</td>
           </tr>
           <tr>
             <td>AI governance principles (smith draft)</td>
             <td>Informational</td>
-            <td>OPSAWG</td>
+            <td>OPSAWG/AINETOPS</td>
           </tr>
         </tbody>
       </table>
@@ -571,6 +706,10 @@
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.zhao-nmop-network-management-agent.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.king-rokui-ainetops-usecases.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.irtf-nmrg-ai-challenges.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.zeng-opsawg-applicability-mcp-a2a.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.zeng-opsawg-llm-netconf-gap.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.zw-opsawg-mcp-network-mgmt.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.irtf-nmrg-llm-nm.xml"/>
       </references>
     </references>
 
