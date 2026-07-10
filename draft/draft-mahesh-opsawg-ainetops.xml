@@ -53,8 +53,8 @@
       <name>Discussion Venues</name>
       <t>
         Discussion of this document should take place on the OPSAWG
-        mailing list (opsawg@ietf.org) or the AINETOPS mailing list
-        (ainetops@ietf.org).
+        mailing list (opsawg@ietf.org), the NMOP mailing list
+        (nmop@ietf.org), or the AINETOPS mailing list (ainetops@ietf.org).
       </t>
     </note>
   </front>
@@ -96,6 +96,14 @@
         evidence to identify these categories, not to prescribe the
         disposition of any individual document, which remains a matter
         for community consensus.
+      </t>
+      <t>
+        Decisions on adoption, disposition, or the formation of a new
+        working group are made by area directors in concert with the
+        relevant WG chairs, not unilaterally.  Throughout this document,
+        work items that could be chartered into a not-yet-formed working
+        group are referred to as the Proposed New WG, alongside existing
+        venues such as OPSAWG and NMOP.
       </t>
 
       <section anchor="conventions-and-definitions" title="Conventions and Definitions">
@@ -188,6 +196,13 @@
         </li>
       </ul>
       <t>
+        Additional individual drafts are being positioned for IETF 126
+        and were not yet available for inclusion in this landscape
+        summary.  These will be assessed against the same categories
+        and criteria during or after the IETF 126 meeting, alongside
+        the drafts listed above.
+      </t>
+      <t>
         Collectively, these efforts have established the problem space
         and use cases.  The next step is to translate this into
         standards-track work with concrete, interoperable deliverables.
@@ -242,8 +257,8 @@
         <t>
           When evaluating whether to adopt a submission as a work item —
           whether in an existing WG such as OPSAWG or NMOP, or as part
-          of a proposal for a new WG — chairs and area directors should
-          consider the following criteria:
+          of a proposal for the Proposed New WG — chairs and area
+          directors should consider the following criteria:
         </t>
         <ul>
           <li>
@@ -755,8 +770,8 @@
     <section numbered="false" anchor="acknowledgments" title="Acknowledgments">
       <t>
         The framework in this document was informed by discussions on
-        the OPSAWG and AINETOPS mailing lists, and by the presentations
-        at IETF 125.  The governance framework in
+        the OPSAWG, NMOP, and AINETOPS mailing lists, and by the
+        presentations at IETF 125.  The governance framework in
         <xref target="I-D.smith-opsawg-ai-network-governance"/> by
         Andy Smith and Nalin Pai provided the concrete foundation from
         which the YANG data model categories are derived.
