@@ -75,11 +75,26 @@
         <xref target="I-D.irtf-nmrg-ai-challenges"/>.
       </t>
       <t>
-        However, these efforts remain disconnected.  There is no
-        chartered working group, no agreed set of deliverables, and
-        no clear standards-track path for the work.  Without
-        coordination, the community risks producing overlapping
-        informational documents rather than interoperable standards.
+        Work on AI-driven network operations should be discussed on
+        the AINETOPS mailing list (ainetops@ietf.org) for general
+        discussion, and brought to OPSAWG for adoption and chartering
+        decisions.
+      </t>
+      <t>
+        AI and network operations tooling is evolving rapidly.  IETF
+        standardization is most valuable for work items that are
+        grounded in stable operational requirements  --  audit trails,
+        governance parameters, security practice  --  rather than areas
+        where industry tooling is iterating faster than IETF can
+        publish.  The proposed work items are chosen with that
+        constraint in mind.
+      </t>
+      <t>
+        AI agents performing network management do what human operators
+        do, potentially faster and with more data ingestion.  This
+        argues for reusing existing IETF protocols and data models
+        rather than creating AI-specific ones, and grounds the scope
+        of the proposed work.
       </t>
       <t>
         This document provides a framework to help WG chairs, area
@@ -141,8 +156,8 @@
           driven entity that bridges service intent and network
           operations using an Intent-Awareness-Analysis-Decision-
           Execution (IAADE) control loop.  The draft identifies three
-          interfaces — Agent-to-User (A2U), Agent-to-Controller (A2C),
-          and Agent-to-Network (A2N) — but explicitly defers the
+          interfaces  --  Agent-to-User (A2U), Agent-to-Controller (A2C),
+          and Agent-to-Network (A2N)  --  but explicitly defers the
           definition of the A2C interface to future documents.
         </li>
         <li>
@@ -164,9 +179,9 @@
         <li>
           <xref target="I-D.zeng-opsawg-applicability-mcp-a2a"/>
           argues that NETCONF has five architectural gaps for AI-driven
-          operations — AI semantic translation, long-lived cross-domain
+          operations  --  AI semantic translation, long-lived cross-domain
           orchestration, multi-agent consensus, rapid DevOps iteration,
-          and large artifact delivery — and proposes the Model Context
+          and large artifact delivery  --  and proposes the Model Context
           Protocol (MCP) and Agent-to-Agent (A2A) protocol as
           complementary layers alongside NETCONF, not replacements
           for it.
@@ -194,6 +209,50 @@
           is deployed, and defines YANG modules for both the LLM
           response record and the human approval workflow.
         </li>
+        <li>
+          ONSEN (Operationalizing Network and Service Abstractions) is
+          a new working group being seated for the first time at
+          IETF 126. ONSEN
+          addresses operational abstractions for networks and services,
+          with potential overlap with AI agent governance and
+          operational state work.
+        </li>
+      </ul>
+      <t>
+        Several BoFs have been approved for IETF 126 that are directly
+        relevant to AI-driven network operations.  This document was
+        written before these BoFs were proposed; the following are noted
+        as coordination points rather than definitive routing targets,
+        since not all approved BoFs are WG-forming and not all
+        WG-forming BoFs will form working groups:
+      </t>
+      <ul>
+        <li>
+          AUDIT (Agent Use of Delegation and Interaction Traceability):
+          covers delegation mechanisms and interaction traceability for
+          agent systems, overlapping with audit log and attribution work.
+        </li>
+        <li>
+          CATALIST (Coordinating Agent To Agent List of efforts): covers
+          A2A coordination.
+        </li>
+        <li>
+          Agent Communication Protocols: covers inter-agent communication
+          protocols, overlapping with A2A and A2C interface work.
+        </li>
+        <li>
+          Discovery of Agents, Workloads, and Named Entities: covers
+          discovery mechanisms for agent-based systems.  There is a genuine technical disagreement in the
+          community about whether existing MCP tool descriptions and JSON
+          Schema are sufficient for capability advertisement, or whether a
+          more formal schema is needed.  This BoF is the appropriate venue
+          to resolve that question.
+        </li>
+        <li>
+          DMSC (Dynamic Multi-agent Secured Collaboration): covers
+          security for multi-agent collaboration, overlapping with the
+          security BCP work.
+        </li>
       </ul>
       <t>
         Additional individual drafts are being positioned for IETF 126
@@ -218,7 +277,7 @@
       <ul>
         <li>
           Standardizing the data models that describe how AI agents
-          are configured, governed, and monitored — so that operators
+          are configured, governed, and monitored  --  so that operators
           can manage AI agents through the same NETCONF/RESTCONF
           interfaces they already use for network devices.
         </li>
@@ -231,6 +290,15 @@
           Producing operational security guidance as a BCP, so that
           operators deploying AI agents can follow a common baseline
           regardless of vendor implementation.
+        </li>
+        <li>
+          Defining the information model for AI agent capabilities,
+          audit trails, and operational state in YANG  --  as
+          transport-agnostic schemas that implementations can consume
+          via NETCONF/RESTCONF, gNMI, or other transports.  Where
+          protocol extensions to NETCONF or RESTCONF are needed, that
+          work belongs in the NETCONF WG, which is the home for those
+          IETF-owned protocols.
         </li>
       </ul>
       <t>
@@ -302,16 +370,19 @@
           of these areas.
         </t>
 
-        <section anchor="intent-model" title="Intent Submission YANG Model">
+        <section anchor="capability-discovery" title="AI Agent Capability Discovery">
           <t>
-            <xref target="I-D.zhao-nmop-network-management-agent"/>
-            specifies that operators and peer agents submit intents to
-            the NMA via the Agent-to-User (A2U) interface using
-            structured formats such as YANG or JSON.  The intent
-            carries a high-level operational goal (e.g., "restore SLA
-            for service X" or "optimize traffic across domain Y") along
-            with associated constraints such as latency bounds, cost
-            limits, and affected resource scope.
+            There is an active debate in the community about whether
+            existing mechanisms  --  MCP tool descriptions with JSON
+            Schema, skill definitions in natural language  --  are
+            sufficient for AI agent capability advertisement in
+            multi-vendor, multi-domain network deployments.  Those
+            with hands-on experience building MCP servers and agents
+            report that well-defined tool descriptions work effectively
+            in practice, including for complex tasks.  Others argue
+            that natural-language skill names do not scale across
+            vendors without a more formal schema, since capability
+            names are not unique and semantics are not verifiable.
           </t>
           <t>
             Standardizing this intent submission format as a YANG data
@@ -346,10 +417,10 @@
             captured in the model as a configurable default.
           </t>
           <t>
-            The model <bcp14>SHOULD</bcp14> also capture the human-in-
-            the-loop workflow: whether a proposed action required human
-            approval before execution, the identity of the approver,
-            the timestamp of approval or rejection, and any operator
+            The model should also capture the human-in-the-loop
+            workflow: whether a proposed action required human approval
+            before execution, the identity of the approver, the
+            timestamp of approval or rejection, and any operator
             annotation attached to the decision.  This extends the
             audit record beyond what the AI agent did autonomously to
             include the governance interactions that constrained it,
@@ -360,12 +431,20 @@
 
         <section anchor="governance-model" title="AI Agent Configuration and Governance YANG Model">
           <t>
+            This model targets the management plane controller or
+            orchestrator that oversees AI agents, not the AI agent
+            runtime itself.  Not all agent implementations embed a
+            NETCONF/RESTCONF server; this model is intended to be
+            consumed by the operator's existing NMS through the
+            management interface of the orchestration layer.
+          </t>
+          <t>
             The governance parameters described in
-            <xref target="I-D.smith-opsawg-ai-network-governance"/> —
+            <xref target="I-D.smith-opsawg-ai-network-governance"/>  -- 
             the Action Registry, operator-managed Allow List and Block
             List, rate limit parameters (actions per hour, per-target
             limits, cooldown periods), protected resource targets, and
-            degradation level thresholds — are all operator-configured
+            degradation level thresholds  --  are all operator-configured
             state.
           </t>
           <t>
@@ -379,23 +458,23 @@
 
         <section anchor="state-model" title="AI Agent Operational State YANG Model">
           <t>
-            The runtime state of an AI agent — its current degradation
+            The runtime state of an AI agent  --  its current degradation
             level, active rate-limit counters, retry counts per target,
             escalation state, and current execution mode (autonomous
-            versus monitoring-only) — constitutes operational state
+            versus monitoring-only)  --  constitutes operational state
             that operators need to observe.
           </t>
           <t>
             This model is further informed by the IAADE control loop
             defined in
             <xref target="I-D.zhao-nmop-network-management-agent"/>.
-            The operational state <bcp14>SHOULD</bcp14> include the
-            current phase of the IAADE loop (Intent, Awareness,
-            Analysis, Decision, or Execution), the active intent being
-            processed, and for each phase: the inputs consumed, the
-            outputs produced, and any exceptions encountered.  This
-            gives operators visibility into not only the health of the
-            AI agent but also what it is currently doing and why.
+            The operational state should include the current phase of
+            the IAADE loop (Intent, Awareness, Analysis, Decision, or
+            Execution), the active intent being processed, and for
+            each phase: the inputs consumed, the outputs produced, and
+            any exceptions encountered.  This gives operators
+            visibility into not only the health of the AI agent but
+            also what it is currently doing and why.
           </t>
           <t>
             Standardizing this as a YANG operational state model is
@@ -462,19 +541,12 @@
 
       <section anchor="mcp-extensions" title="MCP Extensions for Network Management">
         <t>
-          The Model Context Protocol (MCP) is an emerging interface
-          layer designed to allow LLM-based agents to discover and
-          invoke management functions through machine-readable tool
-          descriptors.  Three OPSAWG drafts
-          <xref target="I-D.zeng-opsawg-applicability-mcp-a2a"/>
-          <xref target="I-D.zeng-opsawg-llm-netconf-gap"/>
-          <xref target="I-D.zw-opsawg-mcp-network-mgmt"/>
-          have identified MCP as a complementary interface that
-          addresses gaps in NETCONF and RESTCONF for AI-driven
-          scenarios, specifically: AI semantic translation, LLM-
-          readable capability discovery, and DevOps-paced tool
-          registration.  MCP does not replace NETCONF or RESTCONF;
-          it provides a semantic interface layer above them.
+          The Model Context Protocol (MCP) is an industry specification
+          maintained by Anthropic, not an IETF standard.  IETF does
+          not control its evolution.  The IETF's role is limited to
+          producing operational guidance on how to use MCP effectively
+          alongside IETF-defined YANG models and NETCONF/RESTCONF
+          infrastructure.
         </t>
         <t>
           Two MCP-related items represent appropriate IETF work in
@@ -516,7 +588,7 @@
           identifies two interfaces that require standardization in the
           independent NMA deployment mode: the Agent-to-Controller
           (A2C) interface between the NMA and an existing SDN
-          controller, and — implicitly — peer Agent-to-Agent (A2A)
+          controller, and  --  implicitly  --  peer Agent-to-Agent (A2A)
           interfaces for multi-agent coordination in heterogeneous
           deployments.
         </t>
@@ -617,6 +689,29 @@
           an example of current community work in this category.
         </t>
       </section>
+
+      <section anchor="lifecycle" title="AI Agent Lifecycle Management">
+        <t>
+          An AI agent operating in a network environment has a
+          lifecycle beyond its initial deployment: it must be
+          discoverable by operators and peer agents, its behavior must
+          be verifiable against benchmarks, it may be upgraded as the
+          underlying model or toolset changes, and it may be
+          decommissioned or replaced.  In multi-agent systems, these
+          lifecycle events must be coordinated to avoid capability gaps
+          or conflicting authorities.
+        </t>
+        <t>
+          These concerns map across several venues: discovery belongs
+          with the Discovery of Agents BoF; benchmarking and
+          evaluation methodology belongs in IRTF NMRG, with
+          coordination with the BMWG which has existing work on AI
+          benchmarking; upgrade and operational lifecycle management is
+          suitable for OPSAWG/AIOPS.  This document does not propose
+          specific work items for each at this stage but flags them as
+          areas requiring attention in charter development.
+        </t>
+      </section>
     </section>
 
     <section anchor="out-of-scope" title="Out of Scope">
@@ -627,11 +722,14 @@
       <dl>
         <dt>AI network architecture documents</dt>
         <dd>
-          High-level architecture descriptions of how AI fits into
-          network management are better suited to IRTF or IAB
-          documents.  IETF work should start from a defined
-          architecture and produce data models and protocol extensions
-          for it, not define the architecture itself.
+          IETF should not produce standalone AI network architecture
+          survey documents.  Where a well-developed architecture
+          exists  --  such as the NMA architecture in
+          <xref target="I-D.zhao-nmop-network-management-agent"/>  -- 
+          IETF work should produce data models and protocol extensions
+          that implement it, not relitigate the architecture.  Surveys
+          and taxonomies without an associated deliverable are out of
+          scope.
         </dd>
         <dt>AI and ML algorithm specification</dt>
         <dd>
@@ -719,6 +817,13 @@
           </tr>
         </tbody>
       </table>
+      <t>
+        Items in the Discovery &amp; Naming and Transport categories
+        are contingent on BoF outcomes.  OPSAWG/AIOPS is the fallback
+        home in all cases where a BoF does not produce a working group.
+        Items marked for ONSEN are contingent on ONSEN's charter
+        accommodating them.
+      </t>
     </section>
 
     <section anchor="operational-considerations" title="Operational Considerations">
@@ -731,6 +836,17 @@
         to integrate with existing NETCONF/RESTCONF management
         infrastructure rather than requiring separate management planes
         for AI agents.
+      </t>
+      <t>
+        Deployments using the independent NMA mode  --  where an NMA
+        writes directly to device configuration alongside other
+        management systems  --  introduce a multiple-writer problem.
+        Operators should enforce single-writer semantics at the
+        orchestration layer, either by routing all configuration
+        changes through the NMA or by using NETCONF private candidates
+        to isolate concurrent sessions.  Work items proposing
+        independent NMA deployments should address write-conflict
+        prevention explicitly in their requirements.
       </t>
     </section>
 
@@ -751,15 +867,32 @@
   </middle>
   <back>
     <references anchor="references" title="References">
-      <references anchor="normative-references" title="Normative References">
-        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
-        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
-      </references>
       <references anchor="informative-references" title="Informative References">
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.smith-opsawg-ai-network-governance.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.zhao-nmop-network-management-agent.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.king-rokui-ainetops-usecases.xml"/>
-        <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.irtf-nmrg-ai-challenges.xml"/>
+        <reference anchor="I-D.irtf-nmrg-ai-challenges" target="https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ai-challenges-05">
+          <front>
+            <title>Research Challenges in Coupling Artificial Intelligence and Network Management</title>
+            <author fullname="Jerome Francois" initials="J." surname="Francois">
+              <organization>University of Luxembourg and Inria</organization>
+            </author>
+            <author fullname="Alexander Clemm" initials="A." surname="Clemm">
+              <organization>Independent</organization>
+            </author>
+            <author fullname="Dimitri Papadimitriou" initials="D." surname="Papadimitriou">
+              <organization>3NLab Belgium Research Center</organization>
+            </author>
+            <author fullname="Stenio Fernandes" initials="S." surname="Fernandes">
+              <organization>Central Bank of Canada</organization>
+            </author>
+            <author fullname="Stefan Schneider" initials="S." surname="Schneider">
+              <organization>Digital Railway (DSD) at Deutsche Bahn</organization>
+            </author>
+            <date month="March" year="2025"/>
+          </front>
+          <seriesInfo name="Internet-Draft" value="draft-irtf-nmrg-ai-challenges-05"/>
+        </reference>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.zeng-opsawg-applicability-mcp-a2a.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.zeng-opsawg-llm-netconf-gap.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.zw-opsawg-mcp-network-mgmt.xml"/>
