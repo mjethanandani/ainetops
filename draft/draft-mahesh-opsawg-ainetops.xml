@@ -121,20 +121,6 @@
         venues such as OPSAWG and NMOP.
       </t>
 
-      <section anchor="conventions-and-definitions" title="Conventions and Definitions">
-        <t>
-          The key words "<bcp14>MUST</bcp14>", "<bcp14>MUST
-          NOT</bcp14>", "<bcp14>REQUIRED</bcp14>",
-          "<bcp14>SHALL</bcp14>", "<bcp14>SHALL NOT</bcp14>",
-          "<bcp14>SHOULD</bcp14>", "<bcp14>SHOULD NOT</bcp14>",
-          "<bcp14>RECOMMENDED</bcp14>", "<bcp14>NOT
-          RECOMMENDED</bcp14>", "<bcp14>MAY</bcp14>", and
-          "<bcp14>OPTIONAL</bcp14>" in this document are to be
-          interpreted as described in BCP 14 <xref target="RFC2119"/>
-          <xref target="RFC8174"/> when, and only when, they appear in
-          all capitals, as shown here.
-        </t>
-      </section>
     </section>
 
     <section anchor="current-landscape" title="Current Landscape">
@@ -228,30 +214,26 @@
       </t>
       <ul>
         <li>
-          AUDIT (Agent Use of Delegation and Interaction Traceability):
-          covers delegation mechanisms and interaction traceability for
-          agent systems, overlapping with audit log and attribution work.
+          AGENTPROTO (Agent Communication Protocols): covers end-to-end
+          protocols for agent-to-agent communication.  Its drafts propose
+          MoQ (Media over QUIC) as the transport substrate and include MCP
+          over MoQT, a general agent communication framework, use cases,
+          and a security principal binding specification.  AGENTPROTO's
+          approach is not anchored in NETCONF/RESTCONF, which has direct
+          implications for how OPS area A2A interface work is framed and
+          where it belongs.
         </li>
         <li>
-          CATALIST (Coordinating Agent To Agent List of efforts): covers
-          A2A coordination.
-        </li>
-        <li>
-          Agent Communication Protocols: covers inter-agent communication
-          protocols, overlapping with A2A and A2C interface work.
-        </li>
-        <li>
-          Discovery of Agents, Workloads, and Named Entities: covers
-          discovery mechanisms for agent-based systems.  There is a genuine technical disagreement in the
-          community about whether existing MCP tool descriptions and JSON
-          Schema are sufficient for capability advertisement, or whether a
-          more formal schema is needed.  This BoF is the appropriate venue
-          to resolve that question.
-        </li>
-        <li>
-          DMSC (Dynamic Multi-agent Secured Collaboration): covers
-          security for multi-agent collaboration, overlapping with the
-          security BCP work.
+          DAWN (Discovery of Agents, Workloads, and Named Entities):
+          covers discovery mechanisms for AI agent-based systems.  With
+          twelve drafts in circulation covering terminology, use cases,
+          requirements, gap analysis, an information model, mDNS-based
+          zero-configuration discovery, DNS-based agent naming, privacy,
+          and IPv6 agent-awareness, DAWN is the primary venue for agent
+          discovery standardization.  There is an open question about
+          whether existing MCP tool descriptions and JSON Schema are
+          sufficient for capability advertisement, or whether a more formal
+          schema is needed; DAWN is the appropriate venue to resolve it.
         </li>
       </ul>
       <t>
@@ -280,11 +262,6 @@
           are configured, governed, and monitored  --  so that operators
           can manage AI agents through the same NETCONF/RESTCONF
           interfaces they already use for network devices.
-        </li>
-        <li>
-          Extending existing management protocols to carry attribution
-          metadata for AI-initiated changes, enabling interoperable
-          audit trails and rollback.
         </li>
         <li>
           Producing operational security guidance as a BCP, so that
@@ -412,9 +389,10 @@
             This is a well-defined schema, and standardizing it as a YANG
             data model is well within IETF scope: it would ensure that
             AI agent audit logs are interoperable across vendors and
-            consumable by existing operational tooling.  A minimum
-            retention period of 365 days <bcp14>SHOULD</bcp14> be
-            captured in the model as a configurable default.
+            consumable by existing operational tooling.  Retention
+            periods are a local policy decision; the model should
+            provide a configurable retention parameter without
+            mandating a default value.
           </t>
           <t>
             The model should also capture the human-in-the-loop
@@ -594,15 +572,12 @@
         </t>
         <t>
           Interface definitions of this type are well within IETF
-          scope when expressed using existing IETF management protocols
-          (NETCONF or RESTCONF) and YANG data models, avoiding the
-          introduction of a new protocol.  For the A2C case, such work
-          would define how the NMA invokes controller capabilities
-          (topology queries, telemetry subscriptions, configuration
-          enforcement) as abstract tools, and how the controller
-          returns results and exceptions to the NMA.  WGs focused on
-          network management protocol extensions and operations have
-          directly relevant expertise for this category of work.
+          scope when expressed using YANG data models and existing IETF
+          management protocols.  For the A2C case, such work would define
+          how the NMA invokes controller capabilities (topology queries,
+          telemetry subscriptions, configuration enforcement) as abstract
+          tools, and how the controller returns results and exceptions to
+          the NMA.
         </t>
         <t>
           Beyond the single NMA-to-controller case, real deployments
@@ -613,18 +588,24 @@
           orchestration as gaps not addressed by NETCONF.  Defining
           how AI agents advertise their capabilities, negotiate task
           delegation, and exchange structured results in a way that is
-          interoperable across vendors and anchored in existing IETF
-          management protocols is appropriate IETF work.  Such work
-          would typically include: a YANG module for agent capability
+          interoperable across vendors is appropriate IETF work.  Such
+          work would typically include: a YANG module for agent capability
           advertisement, a mechanism for task delegation and status
-          reporting between peer agents using NETCONF/RESTCONF, and
-          the trust and authorization model governing agent-to-agent
-          interactions.
+          reporting between peer agents, and the trust and authorization
+          model governing agent-to-agent interactions.
         </t>
         <t>
-          Both the A2C and A2A categories benefit from coordination
-          between WGs focused on network management protocol
-          extensions and those focused on YANG data model work.
+          The AGENTPROTO BoF (Agent Communication Protocols), approved
+          for IETF 126, proposes MoQ (Media over QUIC) as the transport
+          substrate for A2A protocols rather than NETCONF/RESTCONF.  If
+          AGENTPROTO results in a working group, that is the natural home
+          for A2A protocol work; OPS area work would coordinate with or
+          reference those standards rather than define a parallel protocol.
+          The transport question  --  whether NETCONF/RESTCONF, MoQ, or
+          another mechanism is appropriate  --  should be resolved in
+          coordination with AGENTPROTO BoF outcomes rather than assumed.
+          If AGENTPROTO does not form a working group, NMOP is the
+          fallback for management-plane-specific A2C work.
         </t>
       </section>
 
