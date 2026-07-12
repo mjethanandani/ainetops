@@ -18,7 +18,7 @@
     symRefs="true"
     version="3">
   <front>
-    <title abbrev="AI NetOps">Recommendations for AI-Driven Network Operations Work in the IETF</title>
+    <title abbrev="AI NetOps">Guidelines for Evaluating AI-Driven Network Operations Work in the IETF</title>
     <seriesInfo name="Internet-Draft" value="draft-mahesh-opsawg-ainetops-00"/>
     <author fullname="Mahesh Jethanandani">
       <organization>Arrcus, Inc</organization>
@@ -38,13 +38,25 @@
         of Artificial Intelligence (AI) and Machine Learning (ML) in
         network operations and management.  These efforts are currently
         spread across multiple working groups and mailing lists without
-        a coordinated path.  This document surveys the landscape,
-        identifies where work belongs across existing and new venues
-        (OPSAWG, NMOP, NETCONF WG, ONSEN WG, and BoFs approved for
-        IETF 126), and provides guidance to OPS area chairs on how to
-        handle adoption requests for AI-related drafts.
+        a coordinated standards-track path.  This document surveys the
+        current landscape, identifies what the IETF is well-positioned
+        to standardize, and provides a framework to help WG chairs,
+        Area Directors (AD), and the broader community evaluate individual
+        submissions and identify categories of work that are appropriate
+        for IETF standardization.  The existing landscape of individual
+        drafts is used as evidence to ground these categories in current
+        community activity; the disposition of any individual submission
+        remains a matter for community consensus.
       </t>
     </abstract>
+    <note removeInRFC="true">
+      <name>Discussion Venues</name>
+      <t>
+        Discussion of this document should take place on the OPSAWG
+        mailing list (opsawg@ietf.org), the NMOP mailing list
+        (nmop@ietf.org), or the AINETOPS mailing list (ainetops@ietf.org).
+      </t>
+    </note>
   </front>
   <middle>
 
@@ -85,14 +97,44 @@
         of the proposed work.
       </t>
       <t>
-        This document identifies where the IETF can make a unique and
-        concrete contribution  --  specifically through YANG data models,
-        protocol extensions, and operational guidance  --  and provides a
-        dispatch map for OPS area chairs fielding adoption requests for
-        AI-related drafts.  It also identifies areas that are better
-        left to research, industry forums, or other bodies.
+        This document provides a framework to help WG chairs, area
+        directors, and the broader community evaluate individual
+        submissions and determine whether a given effort is
+        well-positioned for IETF standardization.  It identifies where
+        the IETF can make a unique and concrete contribution —
+        specifically through YANG data models, protocol extensions, and
+        operational guidance — and describes categories of work that
+        are appropriate for IETF standardization.  It also identifies
+        areas that are better left to research, industry forums, or
+        other bodies.  The existing landscape of individual drafts
+        described in <xref target="current-landscape"/> is used as
+        evidence to identify these categories, not to prescribe the
+        disposition of any individual document, which remains a matter
+        for community consensus.
+      </t>
+      <t>
+        Decisions on adoption, disposition, or the formation of a new
+        working group are made by area directors in concert with the
+        relevant WG chairs, not unilaterally.  Throughout this document,
+        work items that could be chartered into a not-yet-formed working
+        group are referred to as the Proposed New WG, alongside existing
+        venues such as OPSAWG and NMOP.
       </t>
 
+      <section anchor="conventions-and-definitions" title="Conventions and Definitions">
+        <t>
+          The key words "<bcp14>MUST</bcp14>", "<bcp14>MUST
+          NOT</bcp14>", "<bcp14>REQUIRED</bcp14>",
+          "<bcp14>SHALL</bcp14>", "<bcp14>SHALL NOT</bcp14>",
+          "<bcp14>SHOULD</bcp14>", "<bcp14>SHOULD NOT</bcp14>",
+          "<bcp14>RECOMMENDED</bcp14>", "<bcp14>NOT
+          RECOMMENDED</bcp14>", "<bcp14>MAY</bcp14>", and
+          "<bcp14>OPTIONAL</bcp14>" in this document are to be
+          interpreted as described in BCP 14 <xref target="RFC2119"/>
+          <xref target="RFC8174"/> when, and only when, they appear in
+          all capitals, as shown here.
+        </t>
+      </section>
     </section>
 
     <section anchor="current-landscape" title="Current Landscape">
@@ -213,6 +255,13 @@
         </li>
       </ul>
       <t>
+        Additional individual drafts are being positioned for IETF 126
+        and were not yet available for inclusion in this landscape
+        summary.  These will be assessed against the same categories
+        and criteria during or after the IETF 126 meeting, alongside
+        the drafts listed above.
+      </t>
+      <t>
         Collectively, these efforts have established the problem space
         and use cases.  The next step is to translate this into
         standards-track work with concrete, interoperable deliverables.
@@ -259,92 +308,66 @@
       </t>
     </section>
 
-    <section anchor="proposed-work" title="Proposed Work Items">
+    <section anchor="proposed-work" title="Evaluation Framework and Work Categories">
+      <t>
+        The following sections describe categories of work that are
+        well-suited to IETF standardization, along with criteria that
+        chairs and the community can use to evaluate whether a specific
+        submission falls within that category.  The existing submissions
+        described in <xref target="current-landscape"/> are referenced
+        as examples to ground these categories in current community
+        activity.  Whether any given submission should be adopted, where
+        it should be placed, and on what track it should be published
+        are matters for community consensus, not this document.
+      </t>
 
-      <section anchor="wg-scope" title="Working Group Scope">
+      <section anchor="wg-scope" title="Criteria for Evaluating Proposed Work Items">
         <t>
-          The volume of AI-related work and the burden of triaging it
-          in existing WGs argues for a dedicated AIOPS working group.
-          OPSAWG should serve as the interim home while the charter is
-          developed with the chairs, the community, and the IESG.  The
-          charter should commit to the work items described in this
-          section and explicitly exclude architecture surveys, AI
-          algorithm specification, and gap analyses that stand alone
-          without an associated deliverable.
+          When evaluating whether to adopt a submission as a work item —
+          whether in an existing WG such as OPSAWG or NMOP, or as part
+          of a proposal for the Proposed New WG — chairs and area
+          directors should consider the following criteria:
         </t>
-        <t>
-          Experimental and research work related to AI-driven network
-          operations should be directed to the IRTF NMRG.  Chartered
-          work items in OPSAWG or a dedicated AIOPS WG are limited to
-          standards-track and BCP deliverables.
-        </t>
-        <t>
-          The following table maps existing individual drafts to their
-          proposed home for adoption purposes.  This is intended as a
-          reference for chairs fielding adoption requests at IETF 126.
-        </t>
-        <table>
-          <thead>
-            <tr>
-              <th>Draft</th>
-              <th>Proposed Action</th>
-              <th>Home</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>draft-king-rokui-ainetops-usecases</td>
-              <td>Adopt as use cases/requirements input</td>
-              <td>OPSAWG/AIOPS</td>
-            </tr>
-            <tr>
-              <td>draft-smith-opsawg-ai-network-governance</td>
-              <td>Adopt for Informational RFC</td>
-              <td>OPSAWG/AIOPS</td>
-            </tr>
-            <tr>
-              <td>draft-zhao-nmop-network-management-agent</td>
-              <td>Coordinate; A2C interface item to NMOP</td>
-              <td>NMOP</td>
-            </tr>
-            <tr>
-              <td>draft-zeng-opsawg-applicability-mcp-a2a</td>
-              <td>Informational reference; MCP BCP builds on it</td>
-              <td>OPSAWG</td>
-            </tr>
-            <tr>
-              <td>draft-zw-opsawg-mcp-network-mgmt</td>
-              <td>Informational reference</td>
-              <td>OPSAWG</td>
-            </tr>
-            <tr>
-              <td>draft-irtf-nmrg-llm-nm</td>
-              <td>IRTF track; coordinate on audit log</td>
-              <td>IRTF NMRG</td>
-            </tr>
-          </tbody>
-        </table>
-        <t>
-          A use cases and requirements document, building on
-          <xref target="I-D.king-rokui-ainetops-usecases"/>, should
-          be the first adopted work item.  This document will not be
-          published as an RFC but will inform the scope and priorities
-          of the YANG data model work.
-        </t>
+        <ul>
+          <li>
+            Proposed work items should commit to producing specific data
+            models, protocol extensions, or BCP guidance.  General
+            architectural descriptions and high-level surveys are more
+            appropriate for IRTF or IAB publications and are not strong
+            candidates for adoption as WG work items.
+          </li>
+          <li>
+            Gap analyses are appropriate work items only when directly
+            coupled to a committed standards-track or BCP deliverable
+            in the same body of work.  Standalone gap analyses that are
+            not coupled to a normative work item do not advance the
+            standards track and are not strong candidates for adoption.
+          </li>
+          <li>
+            A use cases and requirements document is a valuable early
+            work item to scope and prioritize normative deliverables.
+            Whether such a document is published as an RFC or serves
+            as an internal reference is a community decision.
+          </li>
+          <li>
+            Proposals for new work should explicitly delineate what is
+            out of scope, in particular AI and ML algorithm
+            specification, which belongs in the IRTF.
+          </li>
+        </ul>
       </section>
 
       <section anchor="yang-models" title="YANG Data Models">
         <t>
-          The YANG language is used here as a formal information
-          modeling tool, not as a mandate for NETCONF/RESTCONF as the
-          implementation transport.  These schemas are
-          transport-agnostic; implementations may expose them via
-          NETCONF/RESTCONF, gNMI/gRPC, or other mechanisms appropriate
-          to the deployment context.  Where protocol extensions to
-          NETCONF or RESTCONF are required, that work belongs in the
-          NETCONF WG.  Non-IETF transports such as gRPC, MCP, and REST
-          are valid implementation choices and are out of scope for
-          this charter.
+          YANG data models represent a primary category of work
+          appropriate for IETF standardization.  The following
+          subsections describe four distinct areas of AI agent
+          management where YANG data models would produce concrete,
+          interoperable deliverables.  Current submissions in
+          <xref target="current-landscape"/> provide evidence that the
+          problem space and required data structures are sufficiently
+          well understood to support standards-track YANG work in each
+          of these areas.
         </t>
 
         <section anchor="capability-discovery" title="AI Agent Capability Discovery">
@@ -362,13 +385,16 @@
             names are not unique and semantics are not verifiable.
           </t>
           <t>
-            This debate is the right one for the IETF to inform, but
-            it is not resolved in this document.  The Discovery of
-            Agents, Workloads, and Named Entities BoF (approved for
-            IETF 126) is the appropriate venue to work through whether
-            and what IETF standardization is needed for agent
-            capability advertisement.  Work on this topic should be
-            directed there.
+            Standardizing this intent submission format as a YANG data
+            model is well within IETF scope, covering: the intent
+            itself, the constraints attached to it, the submitting
+            entity (operator or peer agent), the target scope, and the
+            status of intent fulfillment.  Such a model would provide
+            the northbound interface through which human operators and
+            orchestration systems interact with AI agents in a
+            vendor-neutral way, and would serve as the input to the
+            IAADE control loop described in
+            <xref target="I-D.zhao-nmop-network-management-agent"/>.
           </t>
         </section>
 
@@ -383,20 +409,12 @@
             approval.
           </t>
           <t>
-            This is a well-defined schema.  Standardizing it as a YANG
-            data model ensures that AI agent audit logs are
-            interoperable across vendors and consumable by existing
-            operational tooling.  Retention periods are a local policy
-            decision; the model should provide a configurable retention
-            parameter without mandating a default value.
-          </t>
-          <t>
-            Current deployments frequently use OpenTelemetry with
-            Prometheus or OpenMetrics for agent observability.  A YANG
-            audit log model provides a normative, vendor-neutral schema
-            for management systems that require a deterministic
-            interface to the audit trail, complementing rather than
-            replacing existing observability infrastructure.
+            This is a well-defined schema, and standardizing it as a YANG
+            data model is well within IETF scope: it would ensure that
+            AI agent audit logs are interoperable across vendors and
+            consumable by existing operational tooling.  A minimum
+            retention period of 365 days <bcp14>SHOULD</bcp14> be
+            captured in the model as a configurable default.
           </t>
           <t>
             The model should also capture the human-in-the-loop
@@ -430,11 +448,11 @@
             state.
           </t>
           <t>
-            Standardizing these as a YANG data model allows operators
-            to configure and audit AI agent governance through the same
-            NETCONF/RESTCONF interfaces they already use, and enables
-            consistent policy enforcement across heterogeneous
-            deployments.
+            Standardizing these as a YANG data model is well within
+            IETF scope: it would allow operators to configure and
+            audit AI agent governance through the same NETCONF/RESTCONF
+            interfaces they already use, and would enable consistent
+            policy enforcement across heterogeneous deployments.
           </t>
         </section>
 
@@ -459,31 +477,65 @@
             also what it is currently doing and why.
           </t>
           <t>
-            Standardizing this as a YANG operational state model
-            allows operators to monitor AI agent health and activity
-            through existing telemetry and streaming telemetry
-            infrastructure, using the same tools they use to observe
-            network device state.
+            Standardizing this as a YANG operational state model is
+            well within IETF scope: it would allow operators to
+            monitor AI agent health and activity through existing
+            telemetry and streaming telemetry infrastructure, using
+            the same tools they use to observe network device state.
           </t>
         </section>
       </section>
 
       <section anchor="protocol-attribution" title="NETCONF/RESTCONF Extensions for AI Agents">
         <t>
-          When an AI agent modifies device configuration via NETCONF
-          or RESTCONF, its identity is already captured through the
-          standard session authentication mechanisms that apply to any
-          management plane user.  If additional attribution metadata  -- 
-          such as a flag identifying the session as AI-initiated  --  is
-          determined by the community to be warranted for NMS and SIEM
-          correlation, that work belongs in the NETCONF WG, which is
-          the appropriate home for extensions to IETF-owned management
-          protocols.  This document does not propose specific extension
-          text.
+          Protocol extensions to NETCONF and RESTCONF represent a
+          second category of work that is well within IETF scope.
+          Current submissions have identified three gaps in these
+          protocols for AI-driven network management.
         </t>
         <t>
-          Any work on NETCONF or RESTCONF extensions to support AI
-          agent use cases belongs in the NETCONF WG.
+          First, when an AI agent modifies device configuration via
+          NETCONF or RESTCONF, there is currently no standard way to
+          record that the change was AI-initiated in the datastore
+          commit journal or in NETCONF notification streams.  Defining
+          a metadata attribute for NETCONF
+          <tt>&lt;edit-config&gt;</tt> operations and RESTCONF PATCH
+          requests that identifies the change as AI-initiated, carries
+          the agent identity, and references the audit log entry that
+          triggered the action would address this gap.  A corresponding
+          extension to NETCONF notifications to carry this attribution
+          would allow downstream consumers such as network management
+          systems and SIEM tools to correlate configuration events with
+          AI agent activity.
+        </t>
+        <t>
+          Second, <xref target="I-D.zhao-nmop-network-management-agent"/>
+          identifies that the controller northbound interface needs to
+          support intent-based RPCs — operations that accept a
+          high-level operational goal (e.g., "optimize-performance for
+          service X") rather than specific configuration parameters,
+          and return status on goal fulfillment.  This is qualitatively
+          different from the request-response model of existing NETCONF
+          RPCs and would require new RPC definitions that can carry
+          structured intents as inputs and fulfillment status as
+          outputs.
+        </t>
+        <t>
+          Third, an NMA may run multiple concurrent management sessions
+          for independent intents, each requiring strict context
+          isolation to prevent state interference between parallel
+          tasks.  NETCONF's existing session model does not provide
+          this isolation natively.  A lightweight context identifier
+          mechanism for NETCONF sessions that allows a single transport
+          connection to multiplex independent agent task contexts would
+          address this gap.
+        </t>
+        <t>
+          Work of this type — protocol extensions anchored in existing
+          IETF management protocols — is well within IETF scope.  The
+          NETCONF WG has directly relevant expertise for such work, and
+          coordination with WGs focused on YANG data models and network
+          management would be appropriate.
         </t>
       </section>
 
@@ -497,20 +549,36 @@
           infrastructure.
         </t>
         <t>
-          An informational or BCP document on MCP operational best
-          practices for network management would cover: tool
-          granularity guidance (favor purpose-built operational tools
-          over raw protocol mappings), error code conventions, rollback
-          and confirmation signaling, and capability discovery via
-          ietf-yang-library exposed as an MCP tool.  The existing
-          drafts <xref target="I-D.zeng-opsawg-applicability-mcp-a2a"/>
-          and <xref target="I-D.zw-opsawg-mcp-network-mgmt"/> provide
-          a starting point for this work.
+          Two MCP-related items represent appropriate IETF work in
+          this category.  First, a mapping of YANG datastores and
+          NETCONF/RESTCONF operations to MCP tool schemas, such that
+          an MCP server backed by a NETCONF/RESTCONF agent exposes
+          operations like get, edit-config, commit, and rollback as
+          JSON-Schema-described tools with consistent parameter names
+          and error codes.
+          <xref target="I-D.zw-opsawg-mcp-network-mgmt"/> provides
+          a concrete starting point that illustrates what such work
+          would look like.
         </t>
         <t>
-          This work is suitable for OPSAWG, in coordination with any
-          AI agent interoperability frameworks that emerge from
-          industry forums.
+          Second, a YANG module for MCP capability advertisement that
+          allows a network device or controller to declare, through its
+          existing NETCONF/RESTCONF management interface, which YANG
+          modules it supports, which operations are available as MCP
+          tools, and what rollback and confirmation capabilities are
+          present.  This would allow AI agents to query device
+          capabilities using the same infrastructure they use for
+          configuration, without requiring a separate capability
+          discovery protocol.
+        </t>
+        <t>
+          Work of this type — defining standard interfaces between
+          AI-facing protocol layers and existing IETF management
+          protocols — is well within IETF scope.  WGs focused on
+          network management and YANG data models would have relevant
+          expertise, and coordination with the NETCONF WG would be
+          appropriate for any extensions to NETCONF notification
+          semantics that MCP tool responses may require.
         </t>
       </section>
 
@@ -525,23 +593,16 @@
           deployments.
         </t>
         <t>
-          The CATALIST BoF (Coordinating Agent To Agent List of
-          efforts) and the Agent Communication Protocols BoF, both
-          approved for IETF 126, address A2A and inter-agent
-          communication.  If either results in a working group, that
-          is the natural home for this work.  If not, NMOP is the
-          fallback, subject to whether the NMOP charter accommodates
-          it  --  a question to be resolved with the NMOP chairs, the WG,
-          and the IESG before work is formally proposed there.
-        </t>
-        <t>
-          The A2C interface should define how the NMA invokes
-          controller capabilities (topology queries, telemetry
-          subscriptions, configuration enforcement) as abstract tools,
-          and how the controller returns results and exceptions to the
-          NMA.  The interface should be expressed using existing IETF
-          management protocols (NETCONF or RESTCONF) and YANG data
-          models, avoiding the introduction of a new protocol.
+          Interface definitions of this type are well within IETF
+          scope when expressed using existing IETF management protocols
+          (NETCONF or RESTCONF) and YANG data models, avoiding the
+          introduction of a new protocol.  For the A2C case, such work
+          would define how the NMA invokes controller capabilities
+          (topology queries, telemetry subscriptions, configuration
+          enforcement) as abstract tools, and how the controller
+          returns results and exceptions to the NMA.  WGs focused on
+          network management protocol extensions and operations have
+          directly relevant expertise for this category of work.
         </t>
         <t>
           Beyond the single NMA-to-controller case, real deployments
@@ -549,30 +610,21 @@
           domains, each with different capabilities and authorities.
           <xref target="I-D.zeng-opsawg-applicability-mcp-a2a"/>
           identifies multi-agent consensus and long-lived cross-domain
-          orchestration as gaps not addressed by NETCONF.
+          orchestration as gaps not addressed by NETCONF.  Defining
+          how AI agents advertise their capabilities, negotiate task
+          delegation, and exchange structured results in a way that is
+          interoperable across vendors and anchored in existing IETF
+          management protocols is appropriate IETF work.  Such work
+          would typically include: a YANG module for agent capability
+          advertisement, a mechanism for task delegation and status
+          reporting between peer agents using NETCONF/RESTCONF, and
+          the trust and authorization model governing agent-to-agent
+          interactions.
         </t>
         <t>
-          The trust and authorization aspects of A2A interactions
-          should be coordinated with identity work in the security
-          area, including any Workload Identity Tokens (WIT) work,
-          to avoid redundancy.
-        </t>
-      </section>
-
-      <section anchor="encoding" title="Encoding for AI Agent Consumption">
-        <t>
-          YANG data returned from NETCONF/RESTCONF operations can be
-          verbose in XML or JSON form, imposing significant token costs
-          when consumed by LLM-based agents.  As AI agents become
-          consumers of network management data, encoding efficiency is
-          an operational concern alongside human readability.
-        </t>
-        <t>
-          A BCP or informational document surveying encoding
-          alternatives  --  including CBOR (RFC 8949) and selective field
-          projection  --  with guidance on their trade-offs for AI agent
-          use cases, would complement the YANG data model work.  This
-          work is suitable for OPSAWG.
+          Both the A2C and A2A categories benefit from coordination
+          between WGs focused on network management protocol
+          extensions and those focused on YANG data model work.
         </t>
       </section>
 
@@ -605,29 +657,36 @@
           </li>
         </ul>
         <t>
-          A BCP document addressing these considerations would give
-          operators deploying AI agents a normative security baseline
-          independent of vendor implementation.  This work is suitable
-          for OPSAWG.  This work should be coordinated with the DMSC
-          (Dynamic Multi-agent Secured Collaboration) BoF, approved
-          for IETF 126, which addresses security for multi-agent
-          collaboration environments.  Emerging OAuth and workload
-          identity work in the security area is relevant to credential
-          management for AI agents and should be referenced.
+          A BCP document addressing these considerations is well within
+          IETF scope.  It would give operators deploying AI agents a
+          normative security baseline independent of vendor
+          implementation.  WGs focused on operational guidance for
+          network management would have directly relevant expertise
+          for this category of work.
         </t>
       </section>
 
-      <section anchor="informational" title="Governance Principles as Informational RFC">
+      <section anchor="informational" title="Governance Principles as Informational Work">
         <t>
-          The thirteen governance principles defined in
-          <xref target="I-D.smith-opsawg-ai-network-governance"/> are
-          well-developed and provide a sound foundation for
-          implementors.  Publishing this document as an Informational
-          RFC would give it stable citable status without requiring it
-          to carry normative weight.  The normative content  --  the
-          specific configurations and behaviors that implement these
-          principles  --  is better expressed in the YANG data models
-          described in <xref target="yang-models"/>.
+          Governance principle documents represent a distinct category
+          of work appropriate for IETF publication.  When a submission
+          defines a well-structured, broadly applicable set of
+          principles for AI-mediated network management — covering
+          areas such as human authority, safety, auditability,
+          reversibility, and bounded autonomy — it can provide a stable
+          reference foundation for the normative work described in the
+          other categories in this section.  Submissions in this
+          category are strong candidates for Informational publication
+          if the community reaches consensus on their content.
+        </t>
+        <t>
+          The normative content that implements governance principles —
+          the specific configurations, data models, and protocol
+          behaviors — is better expressed in the YANG data models
+          described in <xref target="yang-models"/> than in the
+          principles document itself.
+          <xref target="I-D.smith-opsawg-ai-network-governance"/> is
+          an example of current community work in this category.
         </t>
       </section>
 
@@ -682,149 +741,79 @@
         <dt>Gap analyses and surveys without committed deliverables</dt>
         <dd>
           Gap analyses that are directly coupled to a committed
-          standards-track or BCP work item within the same charter are
-          in scope.  Gap analyses that stand alone  --  without an
-          associated data model or protocol document  --  should not be
-          chartered work items, as the use cases and requirements
-          document is sufficient to scope the normative work.
+          standards-track or BCP work item in the same body of work
+          are in scope.  Gap analyses that stand alone — without an
+          associated data model or protocol document — are not strong
+          candidates for adoption as work items, as the use cases and
+          requirements document is sufficient to scope the normative
+          work.
         </dd>
         <dt>External framework alignment guidelines</dt>
         <dd>
           Guidelines for aligning IETF YANG data models with TMF,
           3GPP, or other external frameworks are outside IETF scope
           and should be addressed through liaison statements rather
-          than chartered work items.
+          than adopted as WG work items.
         </dd>
       </dl>
     </section>
 
-    <section anchor="deliverables-summary" title="Summary of Proposed Deliverables">
+    <section anchor="work-categories-summary" title="Summary of Work Categories">
       <t>
-        The following table summarizes the proposed deliverables,
-        organized by IETF-OPS-AD/AINETOPS categories.
+        The following table summarizes the categories of work
+        identified in this document.  Whether any specific submission
+        falls within a given category, and what should happen to it,
+        are matters for community evaluation using the criteria in
+        <xref target="wg-scope"/>.
       </t>
       <table>
         <thead>
           <tr>
             <th>Category</th>
-            <th>Proposed Work Item</th>
-            <th>Track</th>
-            <th>Home Venue</th>
-            <th>Notes</th>
+            <th>Track Considerations</th>
+            <th>Key Evaluation Criterion</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Network Operations</td>
-            <td>Use cases and requirements document</td>
-            <td>Not published as RFC</td>
-            <td>OPSAWG/AIOPS</td>
-            <td> -- </td>
+            <td>Use cases and requirements</td>
+            <td>RFC or internal reference (community decision)</td>
+            <td>Scope and prioritize normative work; should not stand alone as a work item endpoint</td>
           </tr>
           <tr>
-            <td>Network Operations</td>
-            <td>AI agent audit log information model (YANG)</td>
+            <td>YANG data models for AI agent management (intent, audit, governance, operational state)</td>
             <td>Standards Track</td>
-            <td>OPSAWG/AIOPS; coordinate with AUDIT BoF</td>
-            <td> -- </td>
+            <td>Defines interoperable, vendor-neutral data structures for AI agent management via NETCONF/RESTCONF</td>
           </tr>
           <tr>
-            <td>Network Operations</td>
-            <td>AI agent operational state information model (YANG)</td>
+            <td>NETCONF/RESTCONF protocol extensions for AI agents</td>
             <td>Standards Track</td>
-            <td>ONSEN (if in scope); else OPSAWG/AIOPS</td>
-            <td> -- </td>
+            <td>Extends existing protocols; avoids introduction of new protocols; addresses identified gaps</td>
           </tr>
           <tr>
-            <td>Network Operations</td>
-            <td>AI agent configuration/governance information model (YANG)</td>
-            <td>Informational</td>
-            <td>ONSEN (if in scope); else OPSAWG/AIOPS</td>
-            <td> -- </td>
-          </tr>
-          <tr>
-            <td>Network Operations</td>
-            <td>AI-attribution extension for NETCONF/RESTCONF (if needed)</td>
+            <td>MCP-to-YANG interface layer</td>
             <td>Standards Track</td>
-            <td>NETCONF WG</td>
-            <td>Subject to community consensus on need</td>
+            <td>Defines standard mappings between AI-facing protocol layers and existing IETF management protocols</td>
           </tr>
           <tr>
-            <td>LLM/AI Benchmarking</td>
-            <td>Encoding guidance for AI agent consumption of YANG data</td>
-            <td>Informational/BCP</td>
-            <td>OPSAWG/AIOPS</td>
-            <td> -- </td>
-          </tr>
-          <tr>
-            <td>Discovery &amp; Naming</td>
-            <td>AI agent capability advertisement</td>
-            <td>TBD</td>
-            <td>Discovery of Agents BoF (if WG forms); else OPSAWG/AIOPS</td>
-            <td>Open question; see <xref target="capability-discovery"/></td>
-          </tr>
-          <tr>
-            <td>Transport</td>
-            <td>Agent-to-Agent (A2A) interface</td>
+            <td>Agent-to-Controller and Agent-to-Agent interfaces</td>
             <td>Standards Track</td>
-            <td>CATALIST or Agent Comms BoF (if WG forms); else NMOP</td>
-            <td>Contingent on BoF outcomes</td>
+            <td>Anchored in existing IETF management protocols; defines capability advertisement, delegation, and trust</td>
           </tr>
           <tr>
-            <td>Transport</td>
-            <td>Agent-to-Controller (A2C) interface</td>
-            <td>Standards Track</td>
-            <td>CATALIST or Agent Comms BoF (if WG forms); else NMOP</td>
-            <td>Contingent on BoF outcomes</td>
-          </tr>
-          <tr>
-            <td>Security</td>
-            <td>Operational security BCP</td>
+            <td>Operational security BCP for AI-mediated management</td>
             <td>BCP</td>
-            <td>OPSAWG/AIOPS; coordinate with DMSC BoF</td>
-            <td> -- </td>
+            <td>Normative baseline for operators; not vendor- or algorithm-specific</td>
           </tr>
           <tr>
-            <td>Security</td>
-            <td>Agent identity and authorization</td>
-            <td>TBD</td>
-            <td>SEC WG</td>
-            <td>Coordinate with OAuth/WIT work</td>
-          </tr>
-          <tr>
-            <td>Observability</td>
-            <td>AI agent lifecycle: discovery</td>
+            <td>Governance principles</td>
             <td>Informational</td>
-            <td>Discovery of Agents BoF (if WG forms); else OPSAWG/AIOPS</td>
-            <td> -- </td>
+            <td>Broad community consensus on principles; normative specifics expressed in YANG models</td>
           </tr>
           <tr>
-            <td>Observability</td>
-            <td>AI agent lifecycle: benchmarking and evaluation</td>
-            <td>Informational</td>
-            <td>IRTF NMRG; coordinate with BMWG</td>
-            <td> -- </td>
-          </tr>
-          <tr>
-            <td>Observability</td>
-            <td>AI agent lifecycle: upgrade and operational management</td>
-            <td>Informational</td>
-            <td>OPSAWG/AIOPS</td>
-            <td> -- </td>
-          </tr>
-          <tr>
-            <td> -- </td>
-            <td>AI governance principles (Smith draft)</td>
-            <td>Informational</td>
-            <td>OPSAWG/AIOPS</td>
-            <td> -- </td>
-          </tr>
-          <tr>
-            <td> -- </td>
-            <td>MCP operational best practices</td>
-            <td>Informational/BCP</td>
-            <td>OPSAWG/AIOPS</td>
-            <td> -- </td>
+            <td>Gap analyses</td>
+            <td>In scope only when coupled to a committed deliverable</td>
+            <td>Must be coupled to an associated standards-track or BCP work item in the same body of work</td>
           </tr>
         </tbody>
       </table>
@@ -913,13 +902,12 @@
 
     <section numbered="false" anchor="acknowledgments" title="Acknowledgments">
       <t>
-        The recommendations in this document were informed by
-        discussions on the OPSAWG and AINETOPS mailing lists, and by
-        the presentations at IETF 125.  The governance framework
-        proposed in
+        The framework in this document was informed by discussions on
+        the OPSAWG, NMOP, and AINETOPS mailing lists, and by the
+        presentations at IETF 125.  The governance framework in
         <xref target="I-D.smith-opsawg-ai-network-governance"/> by
         Andy Smith and Nalin Pai provided the concrete foundation from
-        which the YANG data model proposals are derived.
+        which the YANG data model categories are derived.
       </t>
     </section>
   </back>
