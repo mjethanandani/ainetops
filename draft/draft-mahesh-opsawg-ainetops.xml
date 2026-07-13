@@ -77,8 +77,12 @@
       <t>
         Work on AI-driven network operations should be discussed on
         the AINETOPS mailing list (ainetops@ietf.org) for general
-        discussion, and brought to OPSAWG for adoption and chartering
-        decisions.
+        discussion.  OPSAWG's and NMOP's current charters do not cover
+        AI agent management for network operations as their own scope.
+        Once a working group is chartered for this purpose, adoption
+        of individual submissions as work items is a decision for that
+        WG's chairs and rough consensus; chartering the working group
+        itself is an area director and IESG decision.
       </t>
       <t>
         AI and network operations tooling is evolving rapidly.  IETF
@@ -113,12 +117,18 @@
         for community consensus.
       </t>
       <t>
-        Decisions on adoption, disposition, or the formation of a new
-        working group are made by area directors in concert with the
-        relevant WG chairs, not unilaterally.  Throughout this document,
-        work items that could be chartered into a not-yet-formed working
-        group are referred to as the Proposed New WG, alongside existing
-        venues such as OPSAWG and NMOP.
+        Adoption and disposition of individual submissions are
+        decisions for WG chairs and the working group's rough
+        consensus, not the area director.  The area director's decision
+        is specifically whether a working group is formed, made in
+        concert with the relevant WG chairs, not unilaterally.
+        Throughout this document, work items in this space are
+        chartered into the Proposed New WG.  OPSAWG's and NMOP's
+        current charters do not cover AI agent management for network
+        operations, and expanding either to absorb this work is not the
+        proposed path; coordination with OPSAWG, NMOP, and NETCONF WG
+        remains important wherever their existing YANG models or
+        protocols are directly reused.
       </t>
 
     </section>
@@ -202,6 +212,19 @@
           addresses operational abstractions for networks and services,
           with potential overlap with AI agent governance and
           operational state work.
+        </li>
+        <li>
+          <xref target="I-D.carpenter-anima-grasp-rendezvous"/>
+          defines two GRASP-based procedures for agent rendezvous: a
+          simple procedure using GRASP M_DISCOVER and M_RESPONSE, and a
+          negotiated procedure using brief GRASP dialogue.  The mechanism
+          operates without dependency on DNS or mDNS, making it
+          applicable where those mechanisms are unavailable.  The draft
+          builds on RFC 8990 (GRASP) and the autonomic networking
+          architecture; a prototype implementation exists.
+          Authentication and authorization between rendezvous
+          participants are explicitly deferred to the post-rendezvous
+          protocol.
         </li>
       </ul>
       <t>
@@ -300,10 +323,13 @@
 
       <section anchor="wg-scope" title="Criteria for Evaluating Proposed Work Items">
         <t>
-          When evaluating whether to adopt a submission as a work item —
-          whether in an existing WG such as OPSAWG or NMOP, or as part
-          of a proposal for the Proposed New WG — chairs and area
-          directors should consider the following criteria:
+          Adoption of individual submissions as work items is a
+          decision for chairs and the working group, not the area
+          director.  When evaluating whether to adopt a submission as
+          part of a proposal for the Proposed New WG, chairs should
+          consider the following criteria, which also inform whether
+          the area director judges the overall WG-formation proposal
+          ready to bring to IESG:
         </t>
         <ul>
           <li>
@@ -418,7 +444,7 @@
           </t>
           <t>
             The governance parameters described in
-            <xref target="I-D.smith-opsawg-ai-network-governance"/>  -- 
+            <xref target="I-D.smith-opsawg-ai-network-governance"/>  --
             the Action Registry, operator-managed Allow List and Block
             List, rate limit parameters (actions per hour, per-target
             limits, cooldown periods), protected resource targets, and
@@ -595,6 +621,19 @@
           model governing agent-to-agent interactions.
         </t>
         <t>
+          <xref target="I-D.carpenter-anima-grasp-rendezvous"/> provides
+          a concrete example of protocol-anchored A2A work in this
+          category: two GRASP-based rendezvous procedures built on
+          RFC 8990, with a working prototype.  Authentication and
+          authorization between agents are explicitly deferred to the
+          post-rendezvous protocol.  For AI agent deployments, that
+          deferral is a gap worth addressing: the authorization model
+          governing what one agent can ask of another carries governance
+          implications beyond those of traditional autonomous agents.
+          Work building on this approach should address that gap, either
+          within scope or by identifying a companion work item.
+        </t>
+        <t>
           The AGENTPROTO BoF (Agent Communication Protocols), approved
           for IETF 126, proposes MoQ (Media over QUIC) as the transport
           substrate for A2A protocols rather than NETCONF/RESTCONF.  If
@@ -604,8 +643,8 @@
           The transport question  --  whether NETCONF/RESTCONF, MoQ, or
           another mechanism is appropriate  --  should be resolved in
           coordination with AGENTPROTO BoF outcomes rather than assumed.
-          If AGENTPROTO does not form a working group, NMOP is the
-          fallback for management-plane-specific A2C work.
+          If AGENTPROTO does not form a working group, the Proposed New
+          WG is the fallback for management-plane-specific A2C work.
         </t>
       </section>
 
@@ -687,10 +726,17 @@
           with the Discovery of Agents BoF; benchmarking and
           evaluation methodology belongs in IRTF NMRG, with
           coordination with the BMWG which has existing work on AI
-          benchmarking; upgrade and operational lifecycle management is
-          suitable for OPSAWG/AIOPS.  This document does not propose
-          specific work items for each at this stage but flags them as
-          areas requiring attention in charter development.
+          benchmarking; upgrade and operational lifecycle management for
+          autonomous agents is addressed in part by
+          <xref target="RFC9222"/> Section 7, which covers upgrade and
+          lifecycle management for Autonomic Service Agents.  The
+          residual gap for AI-driven network operations is whether
+          LLM-specific scenarios  --  model version rollback, impact
+          assessment of a model change on network behavior, and model
+          grounding preservation across upgrades  --  introduce
+          considerations beyond RFC 9222's current scope.  This
+          document flags that residual gap as an area requiring
+          attention in charter development.
         </t>
       </section>
     </section>
@@ -706,7 +752,7 @@
           IETF should not produce standalone AI network architecture
           survey documents.  Where a well-developed architecture
           exists  --  such as the NMA architecture in
-          <xref target="I-D.zhao-nmop-network-management-agent"/>  -- 
+          <xref target="I-D.zhao-nmop-network-management-agent"/>  --
           IETF work should produce data models and protocol extensions
           that implement it, not relitigate the architecture.  Surveys
           and taxonomies without an associated deliverable are out of
@@ -800,10 +846,10 @@
       </table>
       <t>
         Items in the Discovery &amp; Naming and Transport categories
-        are contingent on BoF outcomes.  OPSAWG/AIOPS is the fallback
-        home in all cases where a BoF does not produce a working group.
-        Items marked for ONSEN are contingent on ONSEN's charter
-        accommodating them.
+        are contingent on BoF outcomes.  The Proposed New WG is the
+        fallback home in all cases where a BoF does not produce a
+        working group.  Items marked for ONSEN are contingent on
+        ONSEN's charter accommodating them.
       </t>
     </section>
 
@@ -878,6 +924,17 @@
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.zeng-opsawg-llm-netconf-gap.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.zw-opsawg-mcp-network-mgmt.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.irtf-nmrg-llm-nm.xml"/>
+        <reference anchor="I-D.carpenter-anima-grasp-rendezvous" target="https://becarpenter.github.io/grasp-rendezvous/draft-carpenter-anima-grasp-rendezvous.html">
+          <front>
+            <title>Using GRASP as an Agent Rendezvous Mechanism</title>
+            <author fullname="Brian E. Carpenter" initials="B. E." surname="Carpenter">
+              <organization>University of Auckland</organization>
+            </author>
+            <date month="July" year="2026"/>
+          </front>
+          <seriesInfo name="Internet-Draft" value="draft-carpenter-anima-grasp-rendezvous"/>
+        </reference>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9222.xml"/>
       </references>
     </references>
 

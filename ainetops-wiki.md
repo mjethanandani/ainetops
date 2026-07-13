@@ -1,7 +1,7 @@
 # AI-Driven Network Operations: Evaluation Guidelines
 
 *Guidance from the Management Area Director on evaluating AI/ML network operations submissions*
-*v1.1 · Last updated: 12 July 2026*
+*v1.2 · Last updated: 12 July 2026*
 
 > **Side Meeting — IETF 126, Vienna**
 > There will be a side meeting on this topic on **Friday, July 24 at 8:00 a.m.** in **Park Suite 4**. Room capacity is limited; attendees are encouraged to join remotely via WebEx: <https://ietf.webex.com/meet/sidemeetings1>
@@ -38,9 +38,11 @@ I am posting this page to share my assessment of the AI-driven network operation
 
 AI and ML techniques are increasingly being applied to network operations: anomaly detection, closed-loop remediation, intent translation, and autonomous device management. The IETF community has responded with a growing number of individual drafts, but these efforts remain disconnected. There is no working group with adopted work items in this space, no agreed set of deliverables, and no clear standards-track path for the work. Without coordination, the community risks producing overlapping informational documents rather than interoperable standards.
 
+The autonomic networking architecture the IETF has already standardized provides directly relevant context. The Autonomic Service Agent (ASA) model, Autonomic Control Plane (ACP), BRSKI, and GRASP (RFC 8990) were designed for autonomous, policy-driven agents operating in network infrastructure. LLM-based AI agents represent a more capable instantiation of that model, not a departure from it. Work in this space should build on this foundation rather than treat AI agents as an entirely new category of management entity.
+
 This page identifies what the IETF is well-positioned to standardize, describes categories of work appropriate for IETF standardization, and flags where community consensus is still forming.
 
-Where this page describes decisions I will make — on adoption, disposition, or WG formation — those decisions are made in concert with the relevant WG chairs, not unilaterally by the AD. Throughout this page, work items that could be chartered into a not-yet-formed working group are marked **Proposed New WG**, alongside existing venues such as OPSAWG and NMOP.
+Adoption and disposition of individual submissions are decisions for WG chairs and the working group's rough consensus, not the AD. Where this page describes a decision I will make, it is specifically whether a working group is formed — a decision made in concert with the relevant WG chairs, not unilaterally by the AD. Throughout this page, work items in this space are chartered into the **Proposed New WG**: OPSAWG's and NMOP's current charters do not cover AI agent management for network operations as their own scope, and expanding either to absorb this work is not the proposed path. Coordination with OPSAWG, NMOP, and NETCONF WG remains important wherever their existing YANG models or protocol mechanics are directly reused.
 
 ## Current Landscape
 
@@ -54,6 +56,7 @@ The following efforts are currently active in the IETF and IRTF in this space:
 - [`draft-zeng-opsawg-llm-netconf-gap`](https://datatracker.ietf.org/doc/draft-zeng-opsawg-llm-netconf-gap/) — gap analysis of NETCONF/RESTCONF for LLM-driven intent-based networking, identifying the absence of a YANG-to-JSON-Schema automation pipeline as a blocking gap.
 - [`draft-zw-opsawg-mcp-network-mgmt`](https://datatracker.ietf.org/doc/draft-zw-opsawg-mcp-network-mgmt/) — specifies concrete MCP extensions mapping directly onto YANG datastore operations (get, edit-config, commit, rollback) with YANG-module capability advertisement.
 - [`draft-irtf-nmrg-llm-nm`](https://datatracker.ietf.org/doc/draft-irtf-nmrg-llm-nm/) — proposes a framework for LLM-assisted network management with a mandatory human-in-the-loop audit step before any AI-generated configuration is deployed.
+- [`draft-carpenter-anima-grasp-rendezvous`](https://becarpenter.github.io/grasp-rendezvous/draft-carpenter-anima-grasp-rendezvous.html) — defines two GRASP-based procedures for agent rendezvous: a simple procedure using GRASP M_DISCOVER/M_RESPONSE, and a negotiated procedure using brief GRASP dialogue. The mechanism operates without dependency on DNS or mDNS, making it applicable in network instability scenarios where other discovery mechanisms may fail. Builds on RFC 8990 (GRASP) and the autonomic networking architecture; a prototype implementation exists. Authentication and authorization between rendezvous participants are explicitly deferred to the post-rendezvous protocol.
 
 The **AINETOPS non-WG mailing list** ([ainetops@ietf.org](mailto:ainetops@ietf.org)) was established to discuss integration of AI and ML in network operations using IETF technologies.
 
@@ -114,6 +117,8 @@ The Model Context Protocol (MCP) is an emerging interface layer allowing LLM-bas
 
 Interface definitions of this type are appropriate IETF work when expressed using existing IETF management protocols and YANG data models, avoiding the introduction of a new protocol. For the A2A case, such work would typically include: a YANG module for agent capability advertisement, a mechanism for task delegation and status reporting, and the trust and authorization model governing agent-to-agent interactions.
 
+[`draft-carpenter-anima-grasp-rendezvous`](https://becarpenter.github.io/grasp-rendezvous/draft-carpenter-anima-grasp-rendezvous.html) provides a concrete example of protocol-anchored A2A work in this space: two GRASP-based rendezvous procedures built directly on RFC 8990, with a working prototype. The draft explicitly scopes out authentication and authorization between rendezvous participants — a gap that is significant for AI agent deployments, where the authorization model governing what one agent can ask another to do carries governance implications beyond those of traditional autonomous agents. Work building on this draft should address that gap, either in scope or by identifying a companion work item.
+
 > **Open question — see AGENTPROTO BoF.** The AGENTPROTO BoF (approved IETF 126) proposes A2A communication protocols built on MoQ (Media over QUIC) rather than NETCONF/RESTCONF. If AGENTPROTO forms a working group, it may define the A2A protocol standard that OPS area management work would reference rather than define independently. Whether network management A2A interfaces require separate treatment in OPSAWG, NMOP, or the Proposed New WG — or whether they are a use case AGENTPROTO would cover — is an open question the side meeting should address.
 
 ### Operational Security BCP
@@ -138,7 +143,7 @@ The community has identified a set of AI agent lifecycle topics not yet well-add
 - **Agent discovery.** How operators discover what AI agents are running in their network, what capabilities they have, and what authority they hold. The **DAWN BoF** (approved IETF 126) is directly addressing this with twelve drafts covering terminology, use cases, requirements, gap analysis, and multiple protocol proposals. Work in this area should be directed to and coordinated with DAWN rather than treated as an unaddressed gap.
 - **Benchmarking.** How the performance of AI agents for network operations tasks is measured and compared across implementations. The IETF BMWG has active work on AI benchmarking that is directly relevant; work in this area should coordinate with and reference that effort.
 - **Model grounding.** How an AI agent is initialized with accurate, current knowledge of the specific network it manages — topology, device inventory, policy — before it begins operating.
-- **Model upgrade and lifecycle management.** How an AI agent's underlying model is updated, rolled back, or replaced without disrupting ongoing network operations, and how the impact of a model change is assessed.
+- **Model upgrade and lifecycle management.** How an AI agent's underlying model is updated, rolled back, or replaced without disrupting ongoing network operations, and how the impact of a model change is assessed. RFC 9222 Section 7 addresses upgrade and lifecycle management for autonomous agents and is directly relevant existing work in this area. The residual question is whether LLM-specific scenarios — model version rollback distinct from software upgrades, impact assessment of a model change on network behavior, model grounding preservation across upgrades — introduce considerations beyond RFC 9222's current scope.
 
 ## What Is Out of Scope
 
@@ -170,7 +175,8 @@ Whether any specific submission falls within a given category, and what should h
 | Operational security BCP | BCP | Normative baseline for operators; not vendor- or algorithm-specific |
 | Governance principles | Informational | Broad community consensus on principles; normative specifics expressed in YANG models |
 | AI agent lifecycle — discovery | See DAWN BoF | DAWN BoF (IETF 126) is the primary venue; twelve drafts in progress |
-| AI agent lifecycle — benchmarking, grounding, upgrade | Gap | Benchmarking: coordinate with BMWG; grounding and upgrade: no current work |
+| AI agent lifecycle — benchmarking, grounding | Gap | Benchmarking: coordinate with BMWG; grounding: no current work |
+| AI agent lifecycle — upgrade and lifecycle management | Partial — see RFC 9222 §7 | RFC 9222 §7 covers autonomous agent upgrade and lifecycle; residual gap: LLM-specific scenarios (model version rollback, model change impact assessment) |
 | Standalone gap analyses | Scoped only | Must be coupled to an associated standards-track or BCP work item in the same body of work |
 
 ---
@@ -179,7 +185,7 @@ Whether any specific submission falls within a given category, and what should h
 
 ### Evaluating Proposed Work Items
 
-When evaluating whether to adopt a submission as a work item — whether in an existing WG such as OPSAWG or NMOP, or as part of a proposal for the Proposed New WG — I encourage chairs to apply the following criteria. These are also the criteria chairs and I will use together when assessing whether a proposal is ready to move forward:
+Adoption of individual submissions as work items is a decision for chairs and the working group, not the AD. When evaluating whether to adopt a submission as part of a proposal for the Proposed New WG, I encourage chairs to apply the following criteria — the same criteria I will use when assessing whether the overall WG-formation proposal is ready to bring to IESG:
 
 - Proposed work items should commit to producing specific data models, protocol extensions, or BCP guidance. General architectural descriptions and high-level surveys are more appropriate for IRTF or IAB publications and are not strong candidates for adoption as WG work items.
 - Gap analyses are appropriate work items only when directly coupled to a committed standards-track or BCP deliverable in the same body of work. Standalone gap analyses do not advance the standards track and are not strong candidates for adoption.
@@ -209,12 +215,12 @@ Several areas in this space remain actively contested (see the open question cal
 
 Use the [summary table](#summary-table) to identify which category your work falls in, then target the appropriate venue:
 
-- **YANG data models** (intent, audit, governance, operational state) → Proposed New WG, OPSAWG, or NMOP depending on scope; air time from any is welcome. Start on the [AINETOPS list](mailto:ainetops@ietf.org).
-- **Intent-based RPCs** → Proposed New WG or NETCONF WG; coordinate with OPSAWG or NMOP for the YANG components.
-- **MCP-to-YANG operation mapping** → Proposed New WG, OPSAWG, or NMOP depending on scope; coordinate with NETCONF WG if NETCONF notification semantics are affected.
-- **A2C / A2A interfaces** → coordinate first with the AGENTPROTO BoF; if a WG forms there, that is the primary home for A2A protocols. NMOP is the fallback for management-plane-specific A2C work; Proposed New WG for A2C work tightly coupled to the YANG data model deliverables.
-- **Operational security BCP** → Proposed New WG, OPSAWG, or NMOP depending on scope.
-- **Governance principles** → Proposed New WG, OPSAWG, or NMOP depending on scope.
+- **YANG data models** (intent, audit, governance, operational state) → Proposed New WG. Start on the [AINETOPS list](mailto:ainetops@ietf.org).
+- **Intent-based RPCs** → Proposed New WG; coordinate with NETCONF WG on protocol mechanics.
+- **MCP-to-YANG operation mapping** → Proposed New WG; coordinate with NETCONF WG if NETCONF notification semantics are affected.
+- **A2C / A2A interfaces** → coordinate first with the AGENTPROTO BoF; if a WG forms there, that is the primary home for A2A protocols. The Proposed New WG is the fallback for management-plane-specific A2C/A2A work tightly coupled to the YANG data model deliverables.
+- **Operational security BCP** → Proposed New WG.
+- **Governance principles** → Proposed New WG.
 - **Lifecycle gaps** (discovery, benchmarking, grounding, upgrade) → emerging area; start on the AINETOPS list and coordinate with BMWG for benchmarking work. A strong candidate for the Proposed New WG once chartered.
 
 ### What Makes a Submission a Strong Candidate
@@ -239,7 +245,7 @@ If your work touches any of the following contested areas, come prepared with a 
 
 If you are considering proposing a BoF in this space, the [RFC 5434](https://www.rfc-editor.org/rfc/rfc5434) questions are the primary lens I will apply when evaluating the proposal. In addition, I will want clear answers to the following before recommending a BoF to IESG:
 
-- **Problem statement.** What is the concrete problem that the Proposed New WG (or a rechartered existing WG) would solve, and why can it not be addressed within the existing scope of OPSAWG, NMOP, or NETCONF WG?
+- **Problem statement.** What is the concrete problem that the Proposed New WG would solve? OPSAWG's, NMOP's, and NETCONF WG's current charters do not cover AI agent management for network operations as their own scope — be ready to explain why expanding one of them is not sufficient, if challenged.
 - **Scope boundary.** What will the WG explicitly *not* do? The risk in this space is a broad mandate that produces informational documents rather than interoperable standards. Proposed milestones should be deliverable-specific.
 - **Parallel activity.** The AI tooling space (MCP, A2A, open-source agents, cloud provider frameworks) is moving quickly. What is the IETF's unique contribution that the market cannot produce on its own, and on what timescale? DAWN, AGENTPROTO, and BMWG activity may already address parts of the proposed scope — DAWN for agent discovery and capability advertisement, AGENTPROTO for A2A communication protocols.
 - **Desired BoF outcome.** A successful BoF produces concrete next steps — proposed milestones, a draft charter, or a clear decision that the work belongs elsewhere — not just a consensus that the topic is interesting.
@@ -265,14 +271,13 @@ These questions need resolution before the scope of any new WG can be meaningful
 If the side meeting is the trigger for WG formation rather than a precursor to a BoF, the following questions must be addressed to a level that the Management AD can take to IESG. These are the same questions a BoF would answer; bypassing the BoF does not bypass the questions.
 
 - **Problem statement.** Can the room agree on a single, concrete statement of the problem a new WG would solve? It must be specific enough to distinguish from existing WG scope. "AI is important for network operations" is not a problem statement; "there is no standards-track home for YANG models governing AI agent behavior in network management, and existing WG charters do not cover that scope" is closer. The room must reach rough consensus on the statement before proceeding.
-- **Existing WG assessment.** For each proposed work item, can it be absorbed by OPSAWG, NMOP, or NETCONF WG as currently constituted, or does it belong in the Proposed New WG? If the answer is that existing WGs would need to expand their scope, that is a different path than forming the Proposed New WG, and both paths should be assessed. The side meeting should reach a clear position on which path is preferable and why.
 - **Critical mass.** Who present — and who on the AINETOPS, OPSAWG, and NMOP mailing lists — is committed to writing drafts, reviewing them, and implementing the resulting standards? A WG that cannot sustain this will be closed. Names and organizations need to be on the record, not just raised hands.
 - **Deliverables and milestones.** For each proposed deliverable, the meeting should confirm: What type of document (YANG model, protocol extension, BCP, Informational)? What track? Who is the likely author or authoring team? What is a realistic first-revision milestone? A general mandate ("the WG will work on YANG models for AI agents") is not sufficient; IESG expects specific, completable milestones.
 - **Scope boundary.** For each topic the proposed WG would explicitly *not* work on, confirm rough consensus that it is excluded. Defining what is out of scope is as important as what is in. This includes: AI and ML algorithm specification, standalone gap analyses, external framework alignment, and work already covered by the DAWN BoF, the AGENTPROTO BoF, or BMWG.
 - **Draft charter text.** Has a first draft of charter text been circulated? If not, the meeting must identify who will write it and by what date. The AD cannot bring an unchartered WG proposal to IESG without text; meeting notes alone are insufficient. Charter text should reflect the problem statement, scope, and deliverables agreed in the meeting.
 - **Chair candidates.** Are there one or two individuals willing to serve as WG chairs? The AD needs names before taking a proposal to IESG. Chairs must be willing to shepherd the work, manage the mailing list, and run WG sessions at IETF meetings. This is not a courtesy question — no chair candidates means no WG proposal.
 - **Next steps.** Together with the identified chair candidates, I will state at the close of the meeting whether the conditions for a direct Proposed New WG proposal to IESG have been met. If they have, I will take the proposal forward. If not, we will identify what remains unresolved and what the community needs to produce before I can do so.
-- **Known objections.** A BoF surfaces opposition publicly; bypassing the BoF does not make objections go away. The side meeting must identify who has raised concerns, on what grounds, and whether those concerns are addressable or fundamental. The AD will need to account for known objections in the IESG proposal. Unaddressed objections become IESG DISCUSS positions.
+- **Known objections.** A BoF surfaces opposition publicly; bypassing the BoF does not make objections go away. This includes objections to the premise that OPSAWG's, NMOP's, and NETCONF WG's charters cannot absorb this work — that premise is not given a separate agenda slot, so any pushback on it is captured here rather than pre-empted. The side meeting must identify who has raised concerns, on what grounds, and whether those concerns are addressable or fundamental. The AD will need to account for known objections in the IESG proposal. Unaddressed objections become IESG DISCUSS positions.
 
 #### Preparation and Success Criteria
 
@@ -282,7 +287,6 @@ Success looks different depending on outcome:
 
 - **If forming the Proposed New WG is the outcome:** The meeting ends with an agreed problem statement, a named set of deliverables and milestones, at least one willing chair candidate, and an AD commitment, made jointly with that chair candidate, to bring the proposal to IESG. Draft charter text either exists or has a named author and deadline.
 - **If WG formation is deferred to a BoF:** The meeting ends with a clear statement of what needs to be resolved before a BoF is warranted, and concrete actions — draft updates, mailing list threads, coordination with DAWN or BMWG — that move the work toward that threshold.
-- **If the work belongs in existing WGs:** The meeting ends with specific guidance on which WGs to approach, what adoption calls to request, and any scope expansions those WGs would need.
 
 ## Questions and Feedback
 
