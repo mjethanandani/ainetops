@@ -1,4 +1,4 @@
-# AI-Driven Network Operations: Evaluation Guidelines
+# AI-Driven Network Operations (Focus on Network Managemnet) Evaluation Guidelines
 
 *Guidance from the Management Area Director on evaluating AI/ML network operations submissions*
 *v1.1 · Last updated: 12 July 2026*
@@ -69,9 +69,9 @@ Additional individual drafts are being positioned for IETF 126 and were not yet 
 The IETF's established strengths lie in defining data models, protocol behavior, and operational guidelines. Applied to AI-driven network operations, this means:
 
 - Standardizing the data models (in YANG or other schema languages) that describe how AI agents are configured, governed, and monitored, giving operators a vendor-neutral basis for AI agent management. Whether those models are served via NETCONF/RESTCONF, MCP, or another interface is a separate design question the community will need to resolve for each category of work.
-- Producing operational security guidance as a BCP, so operators deploying AI agents can follow a common baseline regardless of vendor implementation.
+- Producing operational guidance (including, security) as a BCP, so operators deploying AI agents can follow a common baseline regardless of vendor implementation.
 
-The IETF is **not** well-positioned to specify AI algorithms, model architectures, or training methodologies. Those topics belong in the IRTF or in industry forums.
+The IETF is **not** well-positioned to specify AI algorithms, model architectures, or training methodologies.
 
 ## Categories of Work
 
