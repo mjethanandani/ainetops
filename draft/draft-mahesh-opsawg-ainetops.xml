@@ -128,7 +128,13 @@
         operations, and expanding either to absorb this work is not the
         proposed path; coordination with OPSAWG, NMOP, and NETCONF WG
         remains important wherever their existing YANG models or
-        protocols are directly reused.
+        protocols are directly reused.  This does not preclude NMOP
+        from running complementary, scoped experiments in this space --
+        in the spirit of its NETCONF/YANG-Push-with-Kafka work -- for
+        example on closed-loop automation, anomaly detection, or YANG
+        topology/digital-map issues; that is a parallel, coordinated
+        track alongside the Proposed New WG's standards-track
+        deliverables, not an alternative home for them.
       </t>
 
     </section>

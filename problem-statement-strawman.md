@@ -72,3 +72,9 @@ Come prepared to amend, not just approve. In particular:
   or is the general framing sufficient?
 - Is the claim that "no existing WG charter covers this" accurate and
   defensible if challenged by an OPSAWG, NMOP, or NETCONF WG chair?
+- NMOP has signaled openness to complementary AI-related *experiments*
+  (e.g., closed-loop automation/troubleshooting via YANG Storage and
+  message-broker integration, anomaly detection, YANG topology/digital-map
+  issues) — is that compatible with this statement as a parallel,
+  coordinated track, or does the statement need to explicitly carve it
+  out to avoid ambiguity?
