@@ -34,7 +34,7 @@
 
 ## Background
 
-I am posting this page to share my assessment of the AI-driven network operations space and to provide guidance to working group chairs, draft authors, and the broader community on how I am thinking about this work as the Management AD. The disposition of individual submissions remains a matter for community consensus; this guidance reflects my view on what the IETF is well-positioned to produce and what I will be looking for when evaluating proposals for new work.
+I am posting this page to share my assessment of the AI-driven network operations space and to provide guidance to working group chairs, draft authors, and the broader community on how I am thinking about this work as the Management AD. The disposition of individual submissions remains a matter for community consensus; this guidance reflects my view on what the IETF is well-positioned to produce and what I will be looking for when evaluating proposals for new work. The focus throughout is network management — how AI agents are configured, governed, and monitored — not AI applied to networking more broadly.
 
 AI and ML techniques are increasingly being applied to network operations: anomaly detection, closed-loop remediation, intent translation, and autonomous device management. The IETF community has responded with a growing number of individual drafts, but these efforts remain disconnected. There is no working group with adopted work items in this space, no agreed set of deliverables, and no clear standards-track path for the work. Without coordination, the community risks producing overlapping informational documents rather than interoperable standards.
 
@@ -72,9 +72,9 @@ Additional individual drafts are being positioned for IETF 126 and were not yet 
 The IETF's established strengths lie in defining data models, protocol behavior, and operational guidelines. Applied to AI-driven network operations, this means:
 
 - Standardizing the data models (in YANG or other schema languages) that describe how AI agents are configured, governed, and monitored, giving operators a vendor-neutral basis for AI agent management. Whether those models are served via NETCONF/RESTCONF, MCP, or another interface is a separate design question the community will need to resolve for each category of work.
-- Producing operational security guidance as a BCP, so operators deploying AI agents can follow a common baseline regardless of vendor implementation.
+- Producing operational guidance (including security) as a BCP, so operators deploying AI agents can follow a common baseline regardless of vendor implementation.
 
-The IETF is **not** well-positioned to specify AI algorithms, model architectures, or training methodologies. Those topics belong in the IRTF or in industry forums.
+The IETF is **not** well-positioned to specify AI algorithms, model architectures, or training methodologies.
 
 ## Categories of Work
 
