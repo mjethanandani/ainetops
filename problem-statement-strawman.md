@@ -7,13 +7,24 @@ drafting one from scratch live.
 
 ## Problem statement
 
-There is no standards-track home for YANG models governing AI agent
-behavior in network management, and existing WG charters do not cover
-that scope.
+AI and ML techniques are increasingly being applied to network
+operations: anomaly detection, closed-loop remediation, intent
+translation, and autonomous device management. The IETF community has
+responded with a growing number of individual drafts, but these efforts
+remain disconnected — there is no working group with adopted work items
+in this space, no agreed set of deliverables, and no clear
+standards-track path for the work. Without coordination, the community
+risks producing overlapping informational documents rather than
+interoperable standards.
 
-*(Kept to one sentence deliberately — OPSAWG's own charter opens with a
-single 25-word sentence, NMOP's with two. See "Why this, why now" below
-for the supporting rationale, which is not part of the statement itself.)*
+This working group will identify what the IETF is well-positioned to
+standardize, describe categories of work appropriate for IETF
+standardization, and flag where community consensus is still forming.
+
+*(Adapted directly from the second and fourth paragraphs of the wiki's
+Background section — kept generic rather than anchored in the autonomic
+networking architecture, which stays in the wiki as supporting context
+but isn't part of the statement the room votes rough consensus on.)*
 
 ## Why this, why now
 
