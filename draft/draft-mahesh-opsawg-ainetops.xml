@@ -616,7 +616,11 @@
           delegation, and exchange structured results in a way that is
           interoperable across vendors is appropriate IETF work.  Such
           work would typically include: a YANG module for agent capability
-          advertisement, a mechanism for task delegation and status
+          advertisement once a management session is already established
+          (distinct from the pre-session discovery/rendezvous problem
+          covered by DAWN and by
+          <xref target="I-D.carpenter-anima-grasp-rendezvous"/>, below),
+          a mechanism for task delegation and status
           reporting between peer agents, and the trust and authorization
           model governing agent-to-agent interactions.
         </t>
@@ -624,7 +628,11 @@
           <xref target="I-D.carpenter-anima-grasp-rendezvous"/> provides
           a concrete example of protocol-anchored A2A work in this
           category: two GRASP-based rendezvous procedures built on
-          RFC 8990, with a working prototype.  Authentication and
+          RFC 8990, with a working prototype.  It addresses discovery
+          and bootstrapping, not capability advertisement within an
+          already-established session -- see
+          <xref target="lifecycle"/> for how this relates to DAWN.
+          Authentication and
           authorization between agents are explicitly deferred to the
           post-rendezvous protocol.  For AI agent deployments, that
           deferral is a gap worth addressing: the authorization model
@@ -723,7 +731,11 @@
         </t>
         <t>
           These concerns map across several venues: discovery belongs
-          with the Discovery of Agents BoF; benchmarking and
+          with the Discovery of Agents BoF, including GRASP-based
+          rendezvous approaches such as
+          <xref target="I-D.carpenter-anima-grasp-rendezvous"/>, which
+          should be coordinated with DAWN rather than progressed as a
+          separate, uncoordinated discovery track; benchmarking and
           evaluation methodology belongs in IRTF NMRG, with
           coordination with the BMWG which has existing work on AI
           benchmarking; upgrade and operational lifecycle management for
