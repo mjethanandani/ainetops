@@ -1,4 +1,4 @@
-# AI-Driven Network Operations: Evaluation Guidelines
+# AI-Driven Network Operations (focus on network management): Evaluation Guidelines
 
 *Guidance from the Management Area Director on evaluating AI/ML network operations submissions*
 *v1.2 · Last updated: 12 July 2026*
