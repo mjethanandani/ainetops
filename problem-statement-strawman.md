@@ -28,8 +28,8 @@ but isn't part of the statement the room votes rough consensus on.)*
 
 ## Why this, why now
 
-- **Evidence, not aspiration.** Eight individual drafts are already active
-  across OPSAWG, NMOP, and NMRG, converging independently on the same
+- **Evidence, not aspiration.** More than a dozen individual drafts are already active
+  across OPSAWG, NMOP, NMRG, and NETMOD, converging independently on the same
   categories of work (see the [landscape summary](https://wiki.ietf.org/e/en/group/ops/aiops)).
   This is not a proposal to create interest — the interest already exists
   and is currently uncoordinated.
